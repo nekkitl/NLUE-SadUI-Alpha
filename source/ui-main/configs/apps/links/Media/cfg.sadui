@@ -1,0 +1,10 @@
+;#################
+; sadUI / nekkitl
+; 22:44/03/09/19
+;#################
+
+[FL-Studio]
+path = "C:\Program Files (x86)\Image-Line\FL Studio 12\FL64.exe"
+
+[Folder: Montage]
+path = "D:\Montage"

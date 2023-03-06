@@ -1,0 +1,461 @@
+a:4:{s:3:"key";a:2:{s:8:"--fmedit";a:1:{s:6:"onshow";s:24:"c("timer1")->enable = 1;";}s:6:"timer1";a:1:{s:7:"ontimer";s:176:" for($i=0;$i<0xff;$i++){
+ if(get_key_state($i) < 0){
+global $keyvoice;
+$keyvoice = $i;
+//c("label1")->caption = $i;
+$self->enable = 0;
+HideForm(Key, SW_SHOWMODAL);
+ }
+}";}}s:6:"widget";a:13:{s:8:"--fmedit";a:2:{s:8:"oncreate";s:2472:"
+c("image1")->loadFromFile("Data/voiceb.bmp");
+if( file_exists( "Data/Options.ini" ) ){
+}else{
+$ini = "[Time]
+keyvoice=113
+
+[Widget]
+onTop=1
+enab=0
+x=300
+y=40
+
+[Voice]
+type=0
+interval=2
+intervalenab=1
+Ron=seichas_1.mp3
+Rone=1
+
+
+";
+file_put_contents("Data/Options.ini", $ini);
+}
+
+
+
+
+
+
+
+
+c("trayIcon1")->text = "Виджет Говорящие часы запущены...";
+c("trayIcon1")->showBalloonTip();
+$x = $SCREEN->width;
+		$y = $SCREEN->height;
+
+	
+		$a = true;
+		c("label2")->caption = date('H');
+
+   	c('label3')->caption = date(':i:s');
+   	
+   	if( file_exists("Data/Lang/yes.txt") ){
+   	$ra = file_get_contents("Data/Lang/yes.txt");
+   			$r1 = date('l');
+   			ini::open("Data/Lang/$ra.ini");
+   			ini::read("days_of_the_week", $r1, $go1);
+$r2 = date('F');
+            ini::open("Data/Lang/$ra.ini");
+            ini::read("months", $r2, $go2);
+$r3 = date('j');
+
+
+
+c('label4')->caption = "$go1 $r3 $go2";
+
+   	}else{
+
+		$r1 = date('l');
+		
+$r2 = date('F');
+$r3 = date('j');
+c('label4')->caption = "$r1 $r3 $r2";
+}
+
+global $keyvoice;
+ini::open("Data/Options.ini");
+ini::read("Widget", "onTop", $p1);
+ini::read("Widget", "enab", $p2);
+ini::read("Voice", "type", $p3);
+ini::read("Voice", "interval", $p4);
+ini::read("Voice", "intervalenab", $p5);
+ini::read("Time", "keyvoice", $keyvoice);
+ini::read("Widget", "x", $xw);
+ini::read("Widget", "y", $yw);
+ini::read("Widget", "color", $col);
+ini::read("Widget", "colorfont", $fcol);
+
+if( $col ){
+c("Widget")->color = $col;
+}
+if( $fcol ){
+c("Widget->label2")->font->color = $fcol;
+c("Widget->label3")->font->color = $fcol;
+c("Widget->label4")->font->color = $fcol;
+}
+if( $xw == "" ){
+$xw = 300;
+$yw = 40;
+}
+	$self->x = $x - $xw;
+		$self->y = $yw;
+
+
+
+if( $p1 == 1 ){
+c("Widget")->formStyle = fsStayOnTop;
+}else{
+c("Widget")->formStyle = fsNormal;
+}
+if( $p2 == 1 ){
+c("Widget")->show();
+}else{
+c("Widget")->hide();
+}
+global $patch;
+$patch = winLocalPath( CSIDL_APPDATA );
+dir_search("Data/Voice/", $files, ".vt", true, true); // загоняем найденные файлы в $files массив
+foreach ($files as $file){ // пробегаемся по массиву
+   if (strpos($file, '.')!==false){ // функция поиска подстроки (name) в строке - strpos
+$zip = new ZipArchive;
+$zip->open($file);
+
+
+$zip->extractTo($patch.'/watch/');
+$zip->close();
+   }
+}
+
+global $patch;
+c("Options->voicep")->fileName = "$patch/watch/time.mp3";
+c("Options->voicep")->play();
+
+
+
+";s:6:"onshow";s:543:"$r = new TRegistry;
+$r->RootKey(HKEY_CLASSES_ROOT);
+$r->OpenKey(".vt",1);  //mytxt разрешение файла
+$r->WriteString("","vt");
+$r->CloseKey();
+
+$r->OpenKey("vt",1);
+$r->WriteString("","vt");
+$r->OpenKey("DefaultIcon",1);
+$r->WriteString("",DOC_ROOT."/Data/vtfile.ico"); // путь к иконке
+$r->CloseKey();
+
+//$r->OpenKey("mytxt\\Shell",1);
+//$r->WriteString("","Open");
+//$r->OpenKey("Open",1);
+//$r->OpenKey("command",1);
+//$r->WriteString("","\"C:\\windows\\notepad.exe\" \"%1\""); // путь к проге
+//$r->CloseKey();
+$r->Free();";}s:2:"oa";a:1:{s:9:"onexecute";s:21:"c("Options")->show();";}s:6:"image1";a:1:{s:7:"onclick";s:205:"
+
+
+
+ini::open("Data/Options.ini");
+ini::read("Voice", "Rone", $p7);
+
+if( $p7 == "1" ){
+c("Options->voi")->enable = 1;
+}else{
+c("Options->voice")->enable = 1;
+}
+c("Widget->image1")->enabled = 0;";}s:2:"ex";a:1:{s:9:"onexecute";s:169:"
+if ( confirm('Вы точно хотите завершить работу приложения Говорящие часы?') ){
+c("trayIcon1")->enabled = 0;
+c("trayIcon1")->hideBalloonTip();
+app::close();
+die;
+}";}s:9:"spbutton2";a:1:{s:7:"onclick";s:5:"oa();";}s:9:"spbutton3";a:1:{s:7:"onclick";s:131:"if( c("panel1")->x == 265 ){
+c("panel1")->x = -26;
+$self->caption = "w";
+}else{
+c("panel1")->x = 265;
+$self->caption = "v";
+}";}s:6:"image3";a:2:{s:12:"onmouseenter";s:25:"c("panel1")->visible = 1;";s:9:"onmouseup";s:25:"c("panel1")->visible = 0;";}s:6:"image4";a:2:{s:12:"onmouseenter";s:25:"c("panel1")->visible = 1;";s:9:"onmouseup";s:25:"c("panel1")->visible = 0;";}s:6:"panel1";a:1:{s:12:"onmouseenter";s:19:"$self->visible = 1;";}s:2:"sd";a:1:{s:9:"onexecute";s:201:"messageDlg("Автор программмы: Егор'ыч
+Доведение до ума: @nekkitl, специально под sadUI.
+Спасибо за использование нашей программы...
+Версия приложения: ". c("Widget")->caption, mtInformation, MB_OK);";}s:4:"time";a:1:{s:7:"ontimer";s:78:"	c("label2")->caption = date('H');
+
+   	c('label3')->caption = date(':i:s');";}s:6:"timer1";a:1:{s:7:"ontimer";s:122:"global $sx, $sy, $fx, $fy;
+c("Widget")->x = $fx - ($sx - cursor_pos_x());
+c('Widget')->y = $fy - ($sy - cursor_pos_y());";}s:9:"spbutton1";a:2:{s:11:"onmousedown";s:147:"global $sx, $sy, $fx, $fy;
+$sx = cursor_pos_x();
+$sy = cursor_pos_y();
+$fx = c('Widget')->x;
+$fy = c('Widget')->y;
+c('timer1')->enable = true;";s:9:"onmouseup";s:536:"c('timer1')->enable = 0;
+
+ini::open("Data/Options.ini");
+ini::read("Widget", "x", $xw);
+
+
+$xw = $SCREEN->width - c("Widget")->x;
+ini::write("Widget", "x", $xw);
+ini::write("Widget", "y", c("Widget")->y);
+
+if( c("Widget")->x + c("Widget")->w >= $SCREEN->width ){
+if( c("panel1")->x < 100 ){
+$num1 = 26;
+}else{
+$num1 = 0;
+}
+c("panel1")->x = -26 + $num1;
+c("spButton3")->caption = "w";
+}else{
+if( c("panel1")->x < 100 ){
+$nu = 26;
+}else{
+$nu = "0";
+}
+c("panel1")->x = 265 + $nu;
+c("spButton3")->caption = "v";
+
+}";}}s:7:"options";a:19:{s:9:"spbutton6";a:1:{s:7:"onclick";s:589:"ini::open("Data/Options.ini");
+ini::write("Widget", "onTop", c("checkbox5")->checked);
+ini::write("Widget", "enab", c("checkbox4")->checked);
+ini::write("Voice", "type", c("radioGroup1")->itemIndex);
+ini::write("Voice", "interval", c("radioGroup2")->itemIndex);
+ini::write("Voice", "intervalenab", c("checkbox1")->checked);
+
+ini::write("Voice", "Ron", c("combobox1")->inText);
+ini::write("Voice", "Rone", c("checkbox3")->checked);
+HideForm(Options, SW_SHOW);
+ini::write("Widget", "color", c("Widget")->color);
+ini::write("Widget", "colorfont", c("Widget->label2")->font->color);";}s:9:"colorbox1";a:1:{s:8:"onchange";s:37:"c("Widget")->color = $self->selected;";}s:9:"spbutton2";a:1:{s:7:"onclick";s:246:"if(  c("colorDlg1")->execute() ){
+if( c("colorDlg1")->color ){
+c("Widget->label2")->font->color = c("colorDlg1")->color;
+c("Widget->label3")->font->color = c("colorDlg1")->color;
+c("Widget->label4")->font->color = c("colorDlg1")->color;
+}
+}";}s:9:"colorbox2";a:1:{s:8:"onchange";s:157:"c("Widget->label2")->font->color = $self->selected;
+c("Widget->label3")->font->color = $self->selected;
+c("Widget->label4")->font->color = $self->selected;";}s:9:"spbutton3";a:1:{s:7:"onclick";s:28:"ShowForm(Key, SW_SHOWMODAL);";}s:9:"checkbox1";a:1:{s:7:"onclick";s:43:"c("radioGroup2")->enabled = $self->checked;";}s:8:"--fmedit";a:1:{s:8:"oncreate";s:1899:"global $keyvoice;
+global $patch;
+
+if( file_exists( "Data/Options.ini" ) ){
+ini::open("Data/Options.ini");
+ini::read("Time", "keyvoice", $keyvoice);
+}else{
+$ini = "[Time]
+keyvoice=113
+
+[Widget]
+onTop=1
+enab=0
+x=300
+y=40
+
+[Voice]
+type=0
+interval=2
+intervalenab=1
+
+";
+file_put_contents("Data/Options.ini", $ini);
+}
+
+if( $keyvoice == "" ){
+if( file_exists( "Data/Options.ini" ) ){
+ini::open("Data/Options.ini");
+ini::read("Time", "keyvoice", $keyvoice);
+}
+}elseif( $keyvoice ){
+ini::open("Data/Options.ini");
+ini::write("Time", "keyvoice", $keyvoice);
+ini::open("Data/Keys.ini");
+ini::read("keys", $keyvoice, $key);
+c("label3")->caption = "Клавиша: $key(".$keyvoice.")";
+}
+
+
+
+ini::open("Data/Options.ini");
+ini::read("Widget", "onTop", $p1);
+ini::read("Widget", "enab", $p2);
+ini::read("Voice", "type", $p3);
+ini::read("Voice", "interval", $p4);
+ini::read("Voice", "intervalenab", $p5);
+ini::read("Voice", "Ron", $p6);
+ini::read("Voice", "Rone", $p7);
+ini::read("Time", "keyvoice", $keyvoice);
+
+if( $p5 == 1 ){
+c("checkbox1")->checked = 1;
+c("radioGroup1")->enabled = 1;
+}else{
+c("checkbox1")->checked = 0;
+}
+if( $p1 == 1 ){
+c("checkbox5")->checked = 1;
+}else{
+c("checkbox5")->checked = 0;
+}
+if( $p2 == 1 ){
+c("checkbox4")->checked = 1;
+}else{
+c("checkbox4")->checked = 0;
+}
+if( $p7 == 1 ){
+c("checkbox3")->checked = 1;
+c("combobox1")->enabled = 1;
+}else{
+c("checkbox3")->checked = 0;
+c("combobox1")->enabled = 0;
+}
+c("radioGroup1")->itemIndex = $p3;
+
+c("radioGroup2")->itemIndex = $p4;
+
+global $patch;
+
+
+dir_search($patch."/watch/", $files, ".mp3", true, true);
+foreach ($files as $file){ 
+   if (strpos($file, 'seichas')!==false){ 
+$file1 = basename($file);
+        c("combobox1")->items->add($file1);
+   }
+}
+c("combobox1")->inText = $p6;
+
+if( c("combobox1")->inText ){
+}else{
+c("combobox1")->itemIndex = 0;
+}";}s:6:"timer3";a:1:{s:7:"ontimer";s:229:"global $keyvoice;
+
+
+ini::open("Data/Options.ini");
+ini::read("Voice", "Rone", $p7);
+
+if(get_key_state($keyvoice)<0){ 
+if( $p7 == "1" ){
+c("voi")->enable = 1;
+}else{
+c("voice")->enable = 1;
+}
+c("timer3")->enable =0;
+}";}s:5:"voice";a:1:{s:7:"ontimer";s:515:"$r = date("H");
+if( $r <= 9 ){
+if( $r == "01" ){
+$r = 1;
+}elseif( $r == "02" ){
+$r = 2;
+}elseif( $r == "03" ){
+$r = 3;
+}elseif( $r == "04" ){
+$r = 4;
+}elseif( $r == "05" ){
+$r = 5;
+}elseif( $r == "06" ){
+$r = 6;
+}elseif( $r == "07" ){
+$r = 7;
+}elseif( $r == "08" ){
+$r = 8;
+}elseif( $r == "09" ){
+$r = 9;
+}
+$num = "hour_$r";
+
+}else{
+$num = "hour_$r";
+}
+c("voicep")->loop = 0;
+global $patch;
+c("voicep")->fileName = "$patch/watch/$num.mp3";
+
+c("voicep")->play();
+
+c("v2")->enable = 1;";}s:2:"v2";a:1:{s:7:"ontimer";s:534:"$r = date("i");
+
+if( $r <= 9 ){
+if( $r == "01" ){
+$r = 1;
+}elseif( $r == "02" ){
+$r = 2;
+}elseif( $r == "03" ){
+$r = 3;
+}elseif( $r == "04" ){
+$r = 4;
+}elseif( $r == "05" ){
+$r = 5;
+}elseif( $r == "06" ){
+$r = 6;
+}elseif( $r == "07" ){
+$r = 7;
+}elseif( $r == "08" ){
+$r = 8;
+}elseif( $r == "09" ){
+$r = 9;
+}
+$num = "minute_$r";
+
+}else{
+$num = "minute_$r";
+}
+
+global $patch;
+c("voicep")->fileName = "$patch/watch/$num.mp3";
+c("voicep")->play();
+c("timer3")->enable = 1;
+c("Widget->image1")->enabled = 1;";}s:6:"timer1";a:1:{s:7:"ontimer";s:387:"global $keyvoice;
+
+if( $keyvoice == "" ){
+if( file_exists( "Data/Options.ini" ) ){
+ini::open("Data/Options.ini");
+ini::read("Time", "keyvoice", $keyvoice);
+}
+}elseif( $keyvoice ){
+ini::open("Data/Options.ini");
+ini::write("Time", "keyvoice", $keyvoice);
+ini::open("Data/Keys.ini");
+ini::read("keys", $keyvoice, $key);
+c("label3")->caption = "Клавиша: $key(".$keyvoice.")";
+}";}s:9:"checkbox3";a:1:{s:7:"onclick";s:41:"c("combobox1")->enabled = $self->checked;";}s:3:"voi";a:1:{s:7:"ontimer";s:201:"ini::open("Data/Options.ini");
+ini::read("Voice", "Ron", $p6);
+global $patch;
+c("voicep")->fileName = "$patch/watch/$p6";
+c("voicep")->play();
+c("voice")->interval = 1000;
+c("voice")->enable = 1;";}s:9:"spbutton4";a:1:{s:7:"onclick";s:161:"ini::open("Data/Options.ini");
+ini::write("Widget", "x", "300");
+ini::write("Widget", "y", "40");
+c("Widget")->x = $SCREEN->width - 300;
+c("Widget")->y = 40;";}s:9:"spbutton1";a:1:{s:7:"onclick";s:114:"if(  c("colorDlg1")->execute() ){
+if( c("colorDlg1")->color ){
+c("Widget")->color = c("colorDlg1")->color;
+}
+}";}s:9:"spbutton5";a:1:{s:7:"onclick";s:30:"Run($_PARAMS[0], false);
+die;";}s:9:"spbutton7";a:1:{s:7:"onclick";s:5:"ex();";}s:9:"spbutton8";a:1:{s:7:"onclick";s:337:"global $patch;
+
+
+dir_search($patch."/watch/", $files, ".mp3", true, true);
+
+err_no();
+$boom = NEW SQUALL_Player( c("Options") );
+                        $boom->fileName = $patch."/watch/". c("combobox1")->inText;
+                        $boom->play();
+                        $boom->loop = 0;
+                        err_yes();";}s:9:"spbutton9";a:1:{s:7:"onclick";s:21:"c("Options")->hide();";}}s:2:"up";a:2:{s:9:"download1";a:3:{s:7:"onerror";s:51:"c("Up")->hide;
+messageDlg($error, mtError, MB_OK);";s:10:"oncomplete";s:50:"$name = $self->fileName;
+Run($name, false);
+die;";s:10:"ondownload";s:397:"c("progress1")->step = $max;
+
+c("Up")->caption = round($max / 1024, 0);
+if( round($pos /1024 /1024, 0) > 1){
+$p = round($pos /1024 /1024, 2);
+$m = round($max /1024 /1024, 2);
+$pa = "Мб";
+}elseif( round($pos / 1024, 0) > 1 ){
+$p = round($pos /1024, 1);
+$m = round($max /1024, 1);
+$pa = "Кб";
+}else{
+$p = $pos;
+$pa = "Байт";
+$m = $max;
+}
+c("label1")->caption = $p." $pa. из $m $pa.";";}s:8:"--fmedit";a:1:{s:8:"oncreate";s:29:"$self->doubleBuffered = true;";}}}

@@ -1,0 +1,11 @@
+<?php $viewold = c("cur_menu_view");
+$viewold->visible = false;
+$mainmenu = c("cur_menu");
+$view = c("cur_menu_create");
+$mainmenux = $mainmenu->x;
+$mainmenuy = $mainmenu->y;
+$mainmenuw = $mainmenu->w;
+$view->y = $mainmenuy; // +52 if correct >
+$view->x = $mainmenux + $mainmenuw;
+$self->transparent = false;
+$view->visible = true;

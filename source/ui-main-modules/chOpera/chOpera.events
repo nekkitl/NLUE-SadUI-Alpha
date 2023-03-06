@@ -1,0 +1,1164 @@
+a:8:{s:5:"form1";a:48:{s:9:"chromium1";a:1:{s:17:"onchromiumlibload";s:1053:"
+            ini::read("main", "ua", $ua);
+            ini::read("main", "cache", $cache);
+            ini::read("main", "version", $version);
+            ini::read("main", "locale", $locale);
+           // ini::read("main", "log", $log);
+            ini::read("main", "plugins", $plugins);
+            ini::read("main", "localeStorage", $localeStorage);
+            ini::read("main", "sessionStorage", $sessionStorage);
+            ini::read("main", "jsFlags", $jsFlags);
+            ini::read("main", "proxyDetect", $proxyDetect);
+            //$self->options->imageLoadDisabled = true;
+//return;
+            chromium_settings(
+                        ($cache=='1'?DOC_ROOT.'cache':''),
+						urldecode($ua),
+						$version,
+						$locale,
+						false,
+						$plugins,
+						$localeStorage,
+						$sessionStorage,
+						(int)$jsFlags,
+                        ($proxyDetect=='1')
+				);
+				l('Chromium loaded! Proxy:'.var_export($proxyDetect=='1',1));
+				
+				
+            
+
+
+//$self->options->imageLoadDisabled = true;";}s:8:"--fmedit";a:6:{s:7:"onclose";s:20:"//onBrowserUnload();";s:8:"oncreate";s:114:"c("pages1")->activePage->chrom = c("chromium1");
+HotKey::add(MOD_CONTROL, 82, 'reloadPage' );
+onBrowserLoad();
+";s:10:"ondblclick";s:9:"newTab();";s:8:"onresize";s:20:"c("bar")->repaint();";s:10:"onactivate";s:76:"/*$chrom = c("Form1->pages1")->activePage->chrom;
+$chrom->setFocus();
+  */";s:12:"onclosequery";s:177:"onBrowserUnload();
+
+$pages = c("Form1->pages1")->pages();
+foreach($pages as $page){
+    $page->chrom->stopLoad();
+    $page->chrom->free();
+    $page->free();
+}
+
+die();";}s:6:"pages1";a:2:{s:11:"onmousedown";s:433:"switch($button){
+    case 1: c("popupMenu")->popup( cursor_pos_x(), cursor_pos_y() ); break;
+    case 2: $x = cursor_pos_x();
+            $y = cursor_pos_y();
+            Mouse_Event(2, $x, $y, 0, 0);
+            Mouse_Event(4, $x, $y, 0, 0);
+           // sleep(2);
+            closePage();
+            //closePage($button);
+           // MessageBox("$button   ".var_export( $shift,true), "savedto");
+            break;
+}";s:8:"onchange";s:12:"switchTab();";}s:9:"combobox1";a:3:{s:9:"onkeydown";s:874:"$data_dir = DOC_ROOT.'data/';
+
+if( $key == 13 and trim($self->inText)<>'' ){
+    $text = $self->inText;
+    
+    //ini::open($data_dir.'settings.ini');
+    ini::read("search", "avaliable", $on);
+    
+    if($on=='1' and (stripos($text,' ')!==false || (stripos($text,'.')===false and stripos($text,'://')===false)) || strlen($text)<3){
+    
+        ini::read("search", "url", $search);
+        $search = urldecode($search);
+        $text = str_replace('%s',urlencode(iconv('windows-1251','UTF-8',$text)),$search);
+        
+        l('URL: search phrase input, replace for '.$text);
+    }
+    else{
+        l('URL: input website address '.$text);
+        $arr = array_merge(array($text),c("Form1->combobox1")->items->strings);
+        c("Form1->combobox1")->text = array_unique($arr);
+    }
+    
+    c("Form1->pages1")->activePage->chrom->load($text);
+}";s:8:"onchange";s:63:"//c("pages1")->activePage->chrom->url = c("combobox1")->inText;";s:6:"onblur";s:79:"c("combobox1")->inText = chromium_exec($chrom->self, CHROMIUM_EXEC_ADDRESS, 0);";}s:7:"refresh";a:1:{s:7:"onclick";s:230:"if(c("progress1")->visible===true){//Бар виден == идёт загрузка
+    c("Form1->pages1")->activePage->chrom->stopLoad();
+    c("statusBar1")->simpleText = 'Остановлено';
+    c("progress1")->visible = false;
+}
+else reloadPage();";}s:7:"forward";a:1:{s:7:"onclick";s:44:"c("pages1")->activePage->chrom->goForward();";}s:8:"backward";a:1:{s:7:"onclick";s:41:"c("pages1")->activePage->chrom->goBack();";}s:11:"updateevery";a:1:{s:9:"onexecute";s:45:"ShowForm(c('updateEveryForm'), SW_SHOWMODAL);";}s:6:"bwcopy";a:1:{s:9:"onexecute";s:23:"c("chromium1")->copy();";}s:7:"bwpaste";a:1:{s:9:"onexecute";s:24:"c("chromium1")->paste();";}s:7:"bwprint";a:1:{s:9:"onexecute";s:30:"
+c("chromium1")->showPrint();";}s:7:"addpage";a:1:{s:9:"onexecute";s:7751:"    global $lastClickImage, $lastClickURL, $lastDownload, $lastSelectedText;
+
+	l('addPage("'.$url.'")');
+
+    $localhost = DOC_ROOT.'localhost/';
+    $i = count( c("Form1->pages1")->pages() );
+    $page = c("Form1->pages1")->activePage = c("Form1->pages1")->addPage('Empty Tab');
+    c("Form1")->caption = 'Empty Tab';
+    c("Form1->pages1")->activePage->reload = false;
+    $chrom = new TChromium( c("Form1") );
+    $chrom->parent = $page;
+    $chrom->align = alClient;
+    $chrom->autoreload = false;
+    $chrom->show();
+    $url = (is_null($url) || $url===false || strlen($url)==0)?'about:blank':$url;
+    $chrom->url = $url;
+    $page->chrom = $chrom;
+    $chrom->elements = 0;
+    $chrom->elementsloaded = 0;
+    $chrom->loadposition = 0;
+    $chrom->loadstatus = 'Empty';
+    $chrom->lastURL = NULL;
+
+//chromium_prop($chrom, CHROMIUM_EXEC_SHOWDEVTOOLS, true);
+   // switchTab();
+   
+    $chrom->onGetdownloadhandler = function($length, $url, $mime, $file, $size, &$continue ) use ($chrom){
+        global $lastDownload;
+        $lastDownload = array(
+            'url' => $chrom->lastURL,
+            'mime' => $mime,
+            'file' => $file,
+            'length' => $size,
+        );
+
+        $chrom->loadstatus = 'Downloading file...';
+        switchTab();
+    	l("onGetdownloadhandler($length, $url, $mime, $file, $size); |  lastDownload = ".var_export($lastDownload,1));
+
+        ShowForm(c("downloadStart"), SW_SHOWMODAL);
+        $continue = false;
+    };
+
+    $chrom->onbeforepopup = function($self, $url, &$continue){
+
+	   l("onbeforepopup($url)");
+	   if(stripos($url,'chrome-devtools://')!==0){
+           $index = c("Form1->pages1")->pageIndex;
+           addPage($url); $continue = false;
+           c("Form1->pages1")->pageIndex = $index;
+        }
+    };
+
+    $chrom->onaddresschange = function($self, $url) use ($chrom){
+   	    l("onaddresschange = function($url))");
+
+        $chrom->loadposition = 5;
+        $chrom->loadstatus = 'Connecting...';
+
+       /* if( c("Form1->pages1")->activePage->chrom->self == $self ){
+            c("Form1->combobox1")->inText = $url;
+
+            c("Form1->progress1")->visible = true;
+            c("Form1->progress1")->position = $chrom->loadposition;
+            c("Form1->statusBar1")->simpleText = $chrom->loadstatus;
+        }*/
+        switchTab();
+    };
+
+    $chrom->ontitlechange = function($self, $title) use ($chrom){
+        l("ontitlechange($title)");
+        $title = (strlen($title)==0)?$chrom->lastURL:$title;
+        $self = c($self);
+//        c("Form1")->caption = $title;
+        //if( strlen($title) > 10 ) $title = substr($title, 0, 8).'...';
+        $self->parent->caption = $title;
+        $chrom->loadposition += 5;
+        //$chrom->loadstatus = 'Принимаю данные';
+//        switchTab();
+    };
+
+    $chrom->onbeforebrowse = function($self, $url, $method, $navType, $isRedirect, &$continue) use ($chrom, $localhost){
+        l("onbeforebrowse($url, $method, $navType, $isRedirect)");
+        
+        if($url=='about:blank' || is_null($url) || strlen($url)==0){
+            l("onbeforebrowse: return \$continue = false");
+            return $continue = false;
+        }
+
+        if(stripos($url,'home://')===0){
+            $filename = str_replace(array('home://','..'),array($localhost,null),$url);
+            if($filename[strlen($filename)-1]=='/')$filename.='index.html';
+            
+            if(file_exists($filename)){
+                $chrom->html = 'Home zome';
+                $chrom->loadstatus = 'Home zone';
+                $chrom->loadposition = 0;
+                switchTab();
+            
+                l('Home zone '.$filename);
+                $chrom->loadFile($filename, $url);
+               // return $continue = false;
+               return;
+            }
+            l('No file in home zone '.$filename);
+        }
+
+        $chrom->lastURL = $url;
+
+        ini::read("safe", "avaliable", $on);
+        if($on=='1' && stripos($url,'file:')!==0){
+            $checked = checkURL($url);
+            l("ontitlechange: \$checked = ".var_export($checked,1));
+            if(!$checked){
+                $html = file_get_contents($localhost.'banURL.html');
+                $html = str_replace('<?=$url?>',$url,$html);
+                $html = iconv('UTF-8','cp1251',$html);
+                
+                $chrom->html = 'Banned';
+                $chrom->loadString($html,$url);
+                //$chrom->html = $html;
+                
+                l("ontitlechange: return \$continue = false ");
+                return $continue = false;
+            }
+        }
+    };
+
+    $chrom->onBeforemenu = function($self, $x, $y, $linkURL, $imageURL, $pageURL, $frameURL, $selectText, &$continue){
+             l("onBeforemenu( $x, $y, $linkURL, $imageURL, $pageURL, $frameURL, $seectText)");
+            global $lastClickImage, $lastClickURL, $lastSelectedText;
+            $lastClickImage = $imageURL;
+            $lastClickURL = $linkURL;
+
+            if($selectText){
+                c("Form1->textMenu")->popup($x, $y);
+                $lastSelectedText = $selectText;
+            }
+            elseif($imageURL and $linkURL){
+                 c("Form1->urlImageMenu")->popup($x, $y);
+            }
+            elseif($imageURL){
+                c("Form1->imageMenu")->popup($x, $y);
+            }elseif($linkURL){
+                c("Form1->urlMenu")->popup($x, $y);
+            }
+            else c("Form1->browserMenu")->popup($x, $y);
+
+        $continue = false;
+    };
+
+    $chrom->onLoadStart = function($self) use ($chrom){
+        l("onLoadStart(".$chrom->lastURL.")");
+        $chrom->elements++;
+        $chrom->loadposition += 1;
+        
+        $chrom->loadstatus = 'Loading... ('.$chrom->elementsloaded.'/'.$chrom->elements.')';
+
+        /*if( c("form1->pages1")->activePage->chrom->self == $self ){
+            c("Form1->progress1")->position = $chrom->loadposition;
+            c("Form1->statusBar1")->simpleText =  $chrom->loadstatus;
+        }*/switchTab();
+    };
+
+    $chrom->onLoadEnd = function($self) use ($chrom){
+        l("onLoadEnd()");
+        $chrom->elementsloaded++;
+        $chrom->loadposition += 5;
+        $chrom->loadstatus = 'Loading... ('.$chrom->elementsloaded.'/'.$chrom->elements.')';
+        
+       /* if($chrom->firstLoad === true && !is_null($chrom->html) && strlen($chrom->html)>0){
+            $chrom->html = preg_replace("~<img(.*)>~siU","",$chrom->html);
+            $chrom->html = preg_replace("~<link(.*)>~siU","",$chrom->html);
+            $chrom->html = preg_replace("~<script(.*)>~siU","",$chrom->html);
+            $chrom->stopLoad();
+            $chrom->loadString($chrom->html, $chrom->lastURL);
+            $chrom->firstLoad = false;
+        }*/
+
+
+        if($chrom->elementsloaded == $chrom->elements){
+                $chrom->loadstatus = 'Ready.';
+                $chrom->loadposition = 100;
+               // c("Form1->progress1")->visible = false;
+                l("onLoadEnd: LoadUserScripts:");
+                /* UserScript */
+                $ujs = DOC_ROOT.'localhost/userscripts/*.js';
+                $jss = glob($ujs);
+                foreach($jss as $js){
+                    $chrom->executeJs(file_get_contents($js));
+                    l("onLoadEnd: UJS('.$js.')");
+                }
+            }
+
+
+      /*  if( c("form1->pages1")->activePage->chrom->self == $self ){
+            c("Form1->progress1")->position = $chrom->loadposition;
+            c("Form1->statusBar1")->simpleText = $chrom->loadstatus;
+        }*/
+        switchTab();
+    };
+
+    return $chrom;";}s:9:"closepage";a:1:{s:9:"onexecute";s:179:"$page = c("Form1->pages1")->activePage;
+$page->chrom->free();
+$page->free();
+unset($page);
+
+if(count( c("Form1->pages1")->pages() ) == 0){
+    newTab();
+}
+
+
+switchTab();";}s:10:"reloadpage";a:1:{s:9:"onexecute";s:52:"    c("Form1->pages1")->activePage->chrom->reload();";}s:8:"bwsource";a:1:{s:9:"onexecute";s:577:"$html = c("Form1->pages1")->activePage->chrom->html;
+$url = c("combobox1")->inText;
+
+$buffer = "<?\n".stripslashes($html)."\n?>";	// оформляю как PHP-код
+
+$buffer = highlight_string($buffer,1);    // Подсвеченный код
+
+$buffer = '<code>'.str_replace(array('&lt;?','?&gt;'),array('<!-- Source start -->','<!-- Page: '.$url.' -->'), $buffer).'</code>';	// удаляю добавленную часть и теги управления цветом
+
+$source = '<html><head><title>Исходный текст - '.$url.'</title></head><body contenteditable="true">'.$buffer.'</body></html>';
+addPage()->loadString($source,$url);";}s:11:"bwdeveloper";a:1:{s:9:"onexecute";s:54:"c("Form1->pages1")->activePage->chrom->ShowDevTools();";}s:13:"timerreloader";a:1:{s:7:"ontimer";s:345:"$pages = c("Form1->pages1")->pages();
+if(!is_array($pages))return;
+foreach($pages as $k=>$page){
+    if($page->reload!==false){
+        $time = time();
+        if(($time - $page->reload['time']) > $page->reload['last']){
+            $page->chrom->reloadIgnoreCache();
+            $page->reload['last'] = time();
+        }
+    }
+    
+}";}s:11:"bwimageinfo";a:1:{s:9:"onexecute";s:2528:"global $lastClickImage;
+
+
+$filename  = DOC_ROOT.'temp\\tmp.img';
+
+$chrom = addPage();
+$chrom->html = 'Получаю информацию...';
+
+$ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $lastClickImage);
+      curl_setopt($ch, CURLOPT_HEADER, FALSE);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+$data = curl_exec($ch);
+file_put_contents($filename,$data);
+
+$jpeg_header_data =  get_jpeg_header_data($filename);
+$text = '<html><head><title>Свойства изображения</title> <style>'.@file_get_contents(DOC_ROOT.'localhost\\css\imageinfo.css').'</style></head><body>';
+
+$size = getimagesize ($filename);
+if($size !== false){
+
+    $base64 = 'data:'.$size['mime'].';base64,'.base64_encode($data);
+    
+    $text.= '<img src="'.$base64.'"/ style="max-height:200px; border:1px solid black">';
+    $text.= '<h1>Свойства изображения</h1><table border=1>';
+    $text.= '<tr><td>URL</td><td>'.$lastClickImage.'</td></tr>';
+    $text.= '<tr><td>Размер</td><td>'.round(filesize($filename)/1024/1024,3).' MБ ('.filesize($filename).' Байт)</td></tr>';
+    $text.= '<tr><td>Ширина</td><td>'.$size[0].'</td></tr>';
+    $text.= '<tr><td>Высота</td><td>'.$size[1].'</td></tr>';
+    $text.= '<tr><td>Тип</td><td>'.$size['mime'].'</td></tr>';
+    $text.= '<tr><td>Base64</td><td><input type="text" value="'.$base64.'" onclick="select( this );" style="width:200px;" readonly/></td></tr></table><br/>';
+    
+    if($jpeg_header_data!==false)$text.= '<h1>Расширенная информация</h1>';
+    $text.=Generate_JPEG_APP_Segment_HTML( $jpeg_header_data );
+    $text.=Interpret_intrinsic_values_to_HTML( get_jpeg_intrinsic_values( $jpeg_header_data ) );
+    $text.=Interpret_Comment_to_HTML( $jpeg_header_data );
+    $text.=Interpret_JFIF_to_HTML( get_JFIF( $jpeg_header_data ), $filename );
+    $text.=Interpret_JFXX_to_HTML( get_JFXX( $jpeg_header_data ), $filename );
+    $text.=Interpret_App12_Pic_Info_to_HTML( $jpeg_header_data );
+    $text.=Interpret_EXIF_to_HTML( get_EXIF_JPEG( $filename ), $filename );
+    $text.=Interpret_XMP_to_HTML( read_XMP_array_from_text( get_XMP_text( $jpeg_header_data ) ) );
+    $text.=Interpret_IRB_to_HTML( get_Photoshop_IRB( $jpeg_header_data ), $filename );
+    $text.=Interpret_EXIF_to_HTML( get_Meta_JPEG( $filename ), $filename );
+}
+else $text.='<h2>Данный файл не является изображением. Не удалось получить о нём информацию</h2>';
+
+
+                
+
+$chrom->loadString($text.'</body></html>',$lastClickImage);";}s:6:"newtab";a:1:{s:9:"onexecute";s:228:"ini::read("main", "newtab", $newtab);
+switch($newtab){
+    case 'home':
+        ini::read("main", "homepage", $homepage);
+        addPage(urldecode($homepage));
+    break;
+    default:
+        addPage('about:blank');
+}
+";}s:11:"bwopenimage";a:1:{s:9:"onexecute";s:50:"global $lastClickImage;
+addPage($lastClickImage);";}s:14:"bwcopyimageurl";a:1:{s:9:"onexecute";s:60:"global $lastClickImage;
+clipboard_settext($lastClickImage);";}s:11:"bwsaveimage";a:1:{s:9:"onexecute";s:606:"global $lastClickImage;
+
+c("saveAs")->title = 'Сохранить изображение';
+$tmp = explode('/',$lastClickImage);
+$tmp1 = explode('.',$lastClickImage);
+c("saveAs")->fileName = $tmp[sizeof($tmp)-1];
+c("saveAs")->filter = 'Все файлы (*.*)|Изображения (*.'.$tmp1[sizeof($tmp1)-1].')';
+if(c("saveAs")->execute()){
+    /*c("downloader")->url = $lastClickImage;
+    c("downloader")->path = c("saveAs")->initialDir.c("saveAs")->fileName;
+    c("downloader")->thread = true;
+    c("downloader")->start();*/
+    addDownload($lastClickImage, basename(c("saveAs")->fileName), dirname(c("saveAs")->fileName));
+}";}s:12:"bwopennewtab";a:1:{s:9:"onexecute";s:54:"    global $lastClickURL;
+    addPage($lastClickURL);";}s:9:"bwsaveurl";a:1:{s:9:"onexecute";s:586:"global $lastClickURL;
+
+c("saveAs")->title = 'Сохранить по ссылке';
+$tmp = explode('/',$lastClickURL);
+$last = (strlen($tmp[sizeof($tmp)-1])==0 and sizeof($tmp)>1)?$tmp[sizeof($tmp)-2]:$tmp[sizeof($tmp)-1];
+c("saveAs")->fileName = $last;
+c("saveAs")->filter = 'Все файлы (*.*)|(*.*)';
+if(c("saveAs")->execute()){
+   /* c("downloader")->url = $lastClickURL;
+    c("downloader")->path = c("saveAs")->fileName;
+    c("downloader")->thread = true;
+    c("downloader")->start();*/
+    addDownload($lastClickURL, basename(c("saveAs")->fileName), dirname(c("saveAs")->fileName));
+}";}s:9:"bwcopyurl";a:1:{s:9:"onexecute";s:56:"global $lastClickURL;
+clipboard_settext($lastClickURL);";}s:12:"showsettings";a:1:{s:9:"onexecute";s:42:"ShowForm(c('settingsForm'), SW_SHOWMODAL);";}s:13:"showdownloads";a:1:{s:9:"onexecute";s:34:"ShowForm(c('downloads'), SW_SHOW);";}s:13:"onbrowserload";a:1:{s:9:"onexecute";s:1135:"$data_dir = DOC_ROOT.'data/';
+$lib_dir = DOC_ROOT.'lib/';
+
+/*** Библиотеки ***/
+require_once $lib_dir."proc.php";
+require_once $lib_dir.'meta/JPEG.php';
+require_once $lib_dir.'meta/PictureInfo.php';
+require_once $lib_dir.'meta/EXIF.php';
+require_once $lib_dir.'meta/JFIF.php';
+require_once $lib_dir.'meta/Photoshop_IRB.php';
+require_once $lib_dir.'meta/XMP.php';
+require_once $lib_dir.'meta/Photoshop_File_Info.php';
+
+//Yandex
+
+/*require_once $lib_dir.'yandexSaveBrowsing/SafeBrowsingClient.php';
+require_once $lib_dir.'yandexSaveBrowsing/SafeBrowsingException.php';*/
+require_once $lib_dir.'checkLink.php';
+
+/*** Настройки ***/
+//История URL
+if(!file_exists($data_dir.'history.txt') )fclose(fopen($data_dir.'history.txt','w+'));
+c("combobox1")->items->loadFromFile($data_dir.'history.txt');
+
+//История загрузок
+if(!file_exists($data_dir.'downloads.txt') )fclose(fopen($data_dir.'downloads.txt','w+'));
+c("downloads->files")->items->loadFromFile($data_dir.'downloads.txt');
+
+if(!file_exists($data_dir.'settings.ini'))die('Нет файла настроек '.$data_dir.'settings.ini');
+ini::open($data_dir.'settings.ini');";}s:15:"onbrowserunload";a:1:{s:9:"onexecute";s:514:"$data_dir = DOC_ROOT.'data/';
+
+c("downloads->files")->items->saveToFile($data_dir.'downloads.txt');
+c("Form1->combobox1")->items->saveToFile($data_dir.'history.txt');
+
+
+$pages = c("Form1->pages1")->pages();
+
+$save = array('pages'=>array(),'active'=>c("Form1->pages1")->pageIndex);
+foreach($pages as $k=>$page){
+    $url = chromium_exec($page->chrom->self, CHROMIUM_EXEC_ADDRESS, 0);
+    $save['pages'][$k] = $url;
+}
+
+$t = fopen($data_dir.'tabs.txt','w+');
+fwrite($t,json_encode($save));
+fclose($t);";}s:18:"opendownloadfolder";a:1:{s:9:"onexecute";s:65:"$path = $_ENV['USERPROFILE'].'\\Downloads\\';
+Run($path, false);";}s:8:"checkurl";a:1:{s:9:"onexecute";s:551:"l("checkURL($url);");
+
+$ch = curl_init('http://api.vk.com/method/utils.checkLink?url='.urlencode($url));
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$text = curl_exec($ch);
+if($text===false){
+    l("checkURL: timeout");
+    $return = true;
+}
+else{
+    $d = json_decode($text, true);
+    $return = (isset($d['response']['status']) && $d['response']['status']=='banned')?false:true;
+}
+
+
+l("checkURL: return ".var_export($return,1));
+return $return;";}s:11:"showconsole";a:1:{s:9:"onexecute";s:32:"ShowForm(c('console'), SW_SHOW);";}s:16:"showusersettings";a:1:{s:9:"onexecute";s:42:"ShowForm(c('userSettings'), SW_SHOWMODAL);";}s:9:"switchtab";a:1:{s:9:"onexecute";s:654:"$chrom = c("Form1->pages1")->activePage->chrom;
+c("Form1->combobox1")->inText = chromium_exec($chrom->self, CHROMIUM_EXEC_ADDRESS, 0);
+c("Form1")->caption = c("pages1")->activePage->caption.' - chOpera';
+app::title(c("pages1")->activePage->caption.' - chOpera');
+c("LABEL")->caption = c("pages1")->activePage->caption.' - chOpera';
+
+c("Form1->progress1")->position = $chrom->loadposition;
+c("Form1->statusBar1")->simpleText = $chrom->loadstatus;
+
+c("Form1->progress1")->visible = ($chrom->loadposition<100 && $chrom->loadposition>0);
+
+c("Form1->backward")->visible = $chrom->canGoBack();
+c("Form1->forward")->visible = $chrom->canGoForward();";}s:9:"showproxy";a:1:{s:9:"onexecute";s:30:"ShowForm(c('proxy'), SW_SHOW);";}s:7:"starter";a:1:{s:7:"ontimer";s:709:"c("pages1")->pagesList = '';
+ini::read("main", "onstart", $onstart);
+switch($onstart){
+    case 'last':
+        $data_dir = DOC_ROOT.'data/';
+        if(file_exists($data_dir.'tabs.txt')){
+            $data = json_decode(file_get_contents($data_dir.'tabs.txt'),true);
+            if(isset($data['pages'])){
+                foreach($data['pages'] as $page){
+                    $ch = addPage($page);
+                }
+                return c("Form1->pages1")->pageIndex = $data['active'];
+            }
+        }
+    break;
+    
+    case 'home':
+        ini::read("main", "homepage", $homepage);
+        return addPage(urldecode($homepage));
+    break;
+    
+}
+
+
+addPage('about:blank');";}s:14:"searchselected";a:1:{s:9:"onexecute";s:174:"global $lastSelectedText;
+ini::read("search", "url", $search);
+$search = urldecode($search);
+$url = str_replace('%s',urlencode($lastSelectedText),$search);
+addPage($url);";}s:8:"menulogo";a:1:{s:11:"onmousedown";s:67:"c("Form1->mainMenu")->popup(c("Form1")->x + 9, c("Form1")->y + 30);";}s:7:"firebug";a:1:{s:9:"onexecute";s:514:"c("Form1->pages1")->activePage->chrom->load("javascript:(function(F,i,r,e,b,u,g,L,I,T,E){if(F.getElementById(b))return;E=F[i+'NS']&&F.documentElement.namespaceURI;E=E?F[i+'NS'](E,'script'):F[i]('script');E[r]('id',b);E[r]('src',I+g+T);E[r](b,u);(F[e]('head')[0]||F[e]('body')[0]).appendChild(E);E=new%20Image;E[r]('src',I+L);})(document,'createElement','setAttribute','getElementsByTagName','FirebugLite','4','firebug-lite.js','releases/lite/latest/skin/xp/sprite.png','https://getfirebug.com/','#startOpened');");";}s:12:"bwscreenshot";a:1:{s:9:"onexecute";s:478:"$path = $_ENV['USERPROFILE'].'\\Pictures\\';
+
+$x = c("Form1")->x;
+$y = c("Form1")->y;
+$w = c("Form1")->w;
+$h = c("Form1")->h;
+
+$screen = imagegrabscreen();
+$img = imagecreatetruecolor($w,$h);
+
+imagecopyresampled ($img, $screen, 0, 0, $x, $y, $w, $h, $w, $h);
+
+$filename = $path."screenshot".date("_Y.m.d_H.i.s_").rand(0,100).".png";
+imagepng($img, $filename);
+imagedestroy($img);
+imagedestroy($screen);
+MessageBox("Скриншот сохранён в $filename", "Скриншот ");
+";}s:6:"panel1";a:2:{s:11:"onmousedown";s:264:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("Form1")->x;
+$formY = c("Form1")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";}s:4:"move";a:1:{s:7:"ontimer";s:166:"global $curX, $curY, $formX, $formY;
+c("Form1")->x = $formX - ( $curX - cursor_pos_x() );
+c("Form1")->y = $formY - ( $curY - cursor_pos_y() );
+c("bar")->repaint();";}s:8:"movehide";a:1:{s:7:"ontimer";s:154:"$form = c("Form1");
+$form->alphaBlendValue -= 5;
+if ( $form->alphaBlendValue <= 175 ){
+    $form->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:8:"moveshow";a:1:{s:7:"ontimer";s:154:"$form = c("Form1");
+$form->alphaBlendValue += 5;
+if ( $form->alphaBlendValue >= 250 ){
+    $form->alphaBlendValue = 255;
+    $self->enable = false;
+}";}s:4:"exit";a:1:{s:7:"onclick";s:33:"onBrowserUnload();
+app::close();";}s:5:"label";a:2:{s:11:"onmousedown";s:264:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("Form1")->x;
+$formY = c("Form1")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";}s:8:"fullscrn";a:1:{s:7:"onclick";s:178:"$maxi = c("Form1")->windowState;
+
+if ($maxi == "wsMaximized"){
+c("Form1")->windowState = wsNormal;
+repaint();
+}
+else{
+c("Form1")->windowState = wsMaximized;
+repaint();
+}";}s:7:"repaint";a:1:{s:9:"onexecute";s:20:"c("bar")->repaint();";}}s:15:"updateeveryform";a:8:{s:9:"spbutton1";a:1:{s:7:"onclick";s:376:"$active = c("Form1->pages1")->activePage;
+$url = c("Form1->combobox1")->inText;
+
+$time = c("time_sec")->text;
+if(is_numeric($time) and $time>=10){
+    $active->reload = array(
+        'active'=>true,
+        'time'=>$time,
+        'last'=>0
+    );
+
+HideForm(c('UpdateEveryForm'), SW_SHOW);
+
+}else{
+    MessageBox("Минимальное значение - 10 секунд", "Ошибка");
+}";}s:7:"button1";a:1:{s:7:"onclick";s:307:"$time = c("sec")->text;
+if(is_numeric($time) and $time>=10){
+    $active = c("Form1->pages1")->activePage;
+    $active->reload = array(
+        'time'=>$time,
+        'last'=>time()
+    );
+    HideForm(c('updateEveryForm'), SW_SHOWMODAL);
+}
+else
+MessageBox("Minimal value - 10 seconds", "Error ");";}s:8:"--fmedit";a:1:{s:6:"onshow";s:148:"$active = c("Form1->pages1")->activePage;
+if($active->reload!==false){
+    c("sec")->text = $active->reload['time'];
+}
+else c("sec")->text = 30;";}s:7:"button2";a:1:{s:7:"onclick";s:114:"$active = c("Form1->pages1")->activePage;
+$active->reload = false;
+HideForm(c('UpdateEveryForm'), SW_SHOWMODAL);";}s:4:"move";a:1:{s:7:"ontimer";s:186:"global $curX, $curY, $formX, $formY;
+c("updateEveryForm")->x = $formX - ( $curX - cursor_pos_x() );
+c("updateEveryForm")->y = $formY - ( $curY - cursor_pos_y() );
+c("bar")->repaint();";}s:8:"movehide";a:1:{s:7:"ontimer";s:164:"$form = c("updateEveryForm");
+$form->alphaBlendValue -= 5;
+if ( $form->alphaBlendValue <= 175 ){
+    $form->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:8:"moveshow";a:1:{s:7:"ontimer";s:164:"$form = c("updateEveryForm");
+$form->alphaBlendValue += 5;
+if ( $form->alphaBlendValue >= 250 ){
+    $form->alphaBlendValue = 255;
+    $self->enable = false;
+}";}s:5:"label";a:5:{s:11:"onmousedown";s:284:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("updateEveryForm")->x;
+$formY = c("updateEveryForm")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";s:12:"onmouseenter";s:46:"c("LABEL")->caption = "Double click to close";";s:12:"onmouseleave";s:33:"c("LABEL")->caption = "Settings";";s:10:"ondblclick";s:45:"HideForm(c('updateEveryForm'), SW_SHOWMODAL);";}}s:12:"settingsform";a:11:{s:8:"--fmedit";a:1:{s:6:"onshow";s:541:"$data_dir = DOC_ROOT.'data/';
+if(file_exists($data_dir.'settings.ini')){
+    //ini::open($data_dir.'settings.ini');
+    ini::read("main", "ua", $ua);
+    ini::read("main", "cache", $cache);
+//    ini::read("main", "log", $log);
+    ini::read("main", "proxyDetect", $proxy);
+
+    c("cache")->checked = ($cache=='1');
+    c("proxyCheck")->checked = ($proxy=='1');
+    c("ua")->text = urldecode($ua);
+}
+else{
+    MessageBox("Восстановите удалённый файл settings.ini !", "Внимание ");
+    HideForm(c('settingsForm'), SW_SHOW);
+}
+";}s:8:"detectua";a:1:{s:9:"onexecute";s:413:"$data_dir = DOC_ROOT.'data/';
+ini::open($data_dir.'settings.ini');
+ini::read("engine", "version", $vers);
+ini::read("engine", "chromium", $chvers);
+
+//return 'Mozilla/5.0 (Windows NT '.osinfo_winver().' '.osinfo_syslang().') AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'.$chvers.' chOpera/'.$vers;
+return 'chOpera/'.$vers.' (Windows NT '.osinfo_winver().'; '.osinfo_syslang().') based on Chrome/'.$chvers;";}s:6:"label3";a:1:{s:7:"onclick";s:42:"HideForm(c('settingsForm'), SW_SHOWMODAL);";}s:6:"label5";a:1:{s:7:"onclick";s:538:"    $data_dir = DOC_ROOT.'data/';
+
+    //ini::open($data_dir.'settings.ini');
+
+    ini::write("main", "ua", urlencode((strlen(c("ua")->text)>0)?c("ua")->text:detectUA()),true);
+    ini::write("main", "cache", (c("cache")->checked?1:0),true);
+   // ini::write("main", "log", (c("log")->checked?1:0),true);
+    ini::write("main", "proxyDetect", (c("proxyCheck")->checked===true?'1':'0'),true);
+
+    ini::open($data_dir.'settings.ini');
+
+    MessageBox("Restart chOpera!", "Saved");
+    HideForm(c('settingsForm'), SW_SHOWMODAL);";}s:6:"label6";a:1:{s:7:"onclick";s:99:"c("ua")->text = 'Mozilla/5.0 AppleWebKit/535.8 (KHTML, like Gecko) Chrome/17.0.930.0 Safari/535.8';";}s:6:"label7";a:1:{s:7:"onclick";s:100:"c("ua")->text = 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/17 Safari/537.36 OPR/17';";}s:6:"label8";a:1:{s:7:"onclick";s:27:"c("ua")->text = detectUA();";}s:4:"move";a:1:{s:7:"ontimer";s:158:"global $curX, $curY, $formX, $formY;
+c("settingsForm")->x = $formX - ( $curX - cursor_pos_x() );
+c("settingsForm")->y = $formY - ( $curY - cursor_pos_y() );";}s:8:"movehide";a:1:{s:7:"ontimer";s:161:"$form = c("settingsForm");
+$form->alphaBlendValue -= 5;
+if ( $form->alphaBlendValue <= 175 ){
+    $form->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:8:"moveshow";a:1:{s:7:"ontimer";s:161:"$form = c("settingsForm");
+$form->alphaBlendValue += 5;
+if ( $form->alphaBlendValue >= 250 ){
+    $form->alphaBlendValue = 255;
+    $self->enable = false;
+}";}s:5:"label";a:5:{s:11:"onmousedown";s:278:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("settingsForm")->x;
+$formY = c("settingsForm")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";s:12:"onmouseenter";s:46:"c("LABEL")->caption = "Double click to close";";s:12:"onmouseleave";s:33:"c("LABEL")->caption = "Settings";";s:10:"ondblclick";s:42:"HideForm(c('settingsForm'), SW_SHOWMODAL);";}}s:13:"downloadstart";a:10:{s:7:"button2";a:1:{s:7:"onclick";s:265:"$path = $_ENV['USERPROFILE'].'\\Downloads\\';
+
+$filename = c("filename")->caption;
+$url = c("url")->text;
+$size = c("size")->caption;
+
+addDownload($url, $filename, $path, $size);
+HideForm(c('downloadStart'), SW_SHOWMODAL);
+ShowForm(c('downloads'), SW_SHOW);";}s:7:"button3";a:1:{s:7:"onclick";s:564:"global $lastDownload;
+HideForm(c('downloadStart'), SW_SHOWMODAL);
+
+c("Form1->saveAs")->title = 'Save file';
+c("Form1->saveAs")->fileName = $lastDownload['file'];
+c("Form1->saveAs")->filter = 'All Files (*.*)|(*.*)';
+if(c("Form1->saveAs")->execute()){
+    //alert(c("Form1->saveAs")->fileName);
+
+    $path = dirname(c("Form1->saveAs")->fileName);
+    $filename = basename(c("Form1->saveAs")->fileName);
+    $url = c("url")->text;
+    $size = c("size")->caption;
+    addDownload($url, $filename, $path, $size);
+    ShowForm(c('downloads'), SW_SHOW);
+}";}s:7:"button4";a:1:{s:7:"onclick";s:271:"$path = $_ENV['USERPROFILE'].'\\Downloads\\';
+
+$filename = c("filename")->caption;
+$url = c("url")->text;
+$size = c("size")->caption;
+
+addDownload($url, $filename, $path, $size, true);
+HideForm(c('downloadStart'), SW_SHOWMODAL);
+ShowForm(c('downloads'), SW_SHOW);";}s:8:"--fmedit";a:1:{s:6:"onshow";s:265:"global $lastDownload;
+c("filename")->caption = $lastDownload['file'];
+c("size")->caption = round($lastDownload['length']/1024/1024,3).'МБ ('.$lastDownload['length'].' Байт)';
+c("url")->text = $lastDownload['url'];
+c("fileType")->caption = $lastDownload['mime'];";}s:7:"button1";a:1:{s:7:"onclick";s:89:"global $lastDownload;
+$lastDownload = NULL;
+HideForm(c('downloadStart'), SW_SHOWMODAL);";}s:8:"savefile";a:1:{s:9:"onexecute";s:355:"$ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_HEADER, FALSE);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+$data = curl_exec($ch);
+file_put_contents($file,$data);
+
+$complete($file);";}s:4:"move";a:1:{s:7:"ontimer";s:182:"global $curX, $curY, $formX, $formY;
+c("downloadStart")->x = $formX - ( $curX - cursor_pos_x() );
+c("downloadStart")->y = $formY - ( $curY - cursor_pos_y() );
+c("bar")->repaint();";}s:8:"movehide";a:1:{s:7:"ontimer";s:162:"$form = c("downloadStart");
+$form->alphaBlendValue -= 5;
+if ( $form->alphaBlendValue <= 175 ){
+    $form->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:8:"moveshow";a:1:{s:7:"ontimer";s:162:"$form = c("downloadStart");
+$form->alphaBlendValue += 5;
+if ( $form->alphaBlendValue >= 250 ){
+    $form->alphaBlendValue = 255;
+    $self->enable = false;
+}";}s:5:"label";a:5:{s:11:"onmousedown";s:280:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("downloadStart")->x;
+$formY = c("downloadStart")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";s:12:"onmouseenter";s:46:"c("LABEL")->caption = "Double click to close";";s:12:"onmouseleave";s:38:"c("LABEL")->caption = "File Download";";s:10:"ondblclick";s:27:"c("downloadStart")->hide();";}}s:9:"downloads";a:15:{s:8:"--fmedit";a:3:{s:6:"onshow";s:189:"c("updateInfo")->enable = true;
+c("files")->itemIndex = 0;
+
+c("button1")->enabled = false;
+c("button2")->enabled = false;
+c("button3")->enabled = false;
+c("button4")->enabled = false;";s:6:"onhide";s:32:"c("updateInfo")->enable = false;";s:7:"onclose";s:32:"c("updateInfo")->enable = false;";}s:7:"button2";a:1:{s:7:"onclick";s:31:"Run(c("path")->caption, false);";}s:7:"button4";a:1:{s:7:"onclick";s:238:"$active = c("files")->items->selected.PHP_EOL;
+c("files")->text = str_replace($active,'',c("files")->text);
+
+c("button1")->enabled = false;
+c("button2")->enabled = false;
+c("button3")->enabled = false;
+c("button4")->enabled = false;";}s:5:"files";a:1:{s:7:"onclick";s:17:"//readDownload();";}s:11:"adddownload";a:1:{s:9:"onexecute";s:277:"// filename | size | path | url
+
+$i = 0;
+$f = $file;
+while(file_exists($path.$file)){
+    $i++;
+    $file = '('.$i.') '.$f;
+}
+
+c("files")->text = $file.' | '.$size.' | '.$path.' | '.$url.' | false'.PHP_EOL.c("files")->text;
+startDownload($path.$file,$url,$autostart);";}s:10:"updateinfo";a:1:{s:7:"ontimer";s:1721:"$text = c("files")->items->selected;
+if(is_null($text) || $text===false || strlen($text)==0)return false;
+$data = explode(' | ',$text);
+$ex = file_exists($data[2].$data[0]);
+$exd = file_exists($data[2].$data[0].'.download');
+
+c("filename")->caption = $data[0];
+c("filename")->link = $ex?'file://'.$data[2].$data[0]:NULL;
+c("path")->caption = $data[2];
+c("path")->link = 'file://'.$data[2];
+c("url")->text = $data[3];
+c("size")->caption = $data[1];
+
+c("stat")->caption = 'Загружено';
+c("button4")->enabled = true;
+c("button2")->enabled = true;
+
+$perc = 100;
+$perctxt = '100%';
+$speed = 'Неизвестно';
+$time = 'Неизвестно';
+    
+if($exd){
+    $d = file_get_contents($data[2].$data[0].'.download');
+    if(stripos($d,'error')!==false){
+        c("stat")->caption = 'Ошибка';
+    }
+    elseif($d=='stop'){
+
+
+        c("stat")->caption = 'Остановлено';
+    }
+    else{
+
+
+        c("stat")->caption = 'Загружается';
+        $tmp = explode("\r",$d);
+        $line = array_pop($tmp);
+        $tmp1 = explode(' ',trim(str_replace(array('     ','    ','   ','  '),' ',$line)));
+    
+        $perc = $tmp1[0];
+        $perctxt = $tmp1[0].'%';
+        $speed = $tmp1[11];
+        $time = $tmp1[8];
+        c("button4")->enabled = false;
+    }
+}
+
+c("loaded")->caption = $perctxt;
+c("loadedbar")->position = $perc;
+c("speed")->caption = $speed;
+c("time")->caption = $time;
+
+if($perc<100 || !$ex){
+    c("button1")->enabled = false;
+    c("button3")->enabled = true;
+}else{
+    c("button1")->enabled = true;
+    c("button3")->enabled = false;
+}
+
+if(!$ex){
+    c("stat")->caption = 'Файл удалён';
+    c("stat")->font->color = '#FF0000';
+    c("button3")->enabled = false;
+}";}s:13:"startdownload";a:1:{s:9:"onexecute";s:936:"//global $a;
+//alert('$a = '.$a);
+
+$ch = curl_init($url);
+
+curl_setopt($ch, CURLOPT_AUTOREFERER,       true);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION,    true);
+curl_setopt($ch, CURLOPT_NOPROGRESS,        false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,    false);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER,    true);
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,    30);
+
+
+
+//$f = fopen($file, 'w+');
+//$f = Proc::Get($file);
+$s = fopen($file.'.download', 'w+');
+
+//curl_setopt($ch, CURLOPT_FILE, $f);
+curl_setopt($ch, CURLOPT_WRITEFUNCTION, Proc::Func($file));
+
+curl_setopt($ch, CURLOPT_STDERR, $s);
+
+if(curl_exec($ch)){
+    fclose($s);
+    unlink($file.'.download');
+    if($autostart===true){
+        Run($file, false);
+    }
+    //else alert('Loaded! '.$file);
+}
+else{
+ //   alert('Error '.$file.' '.curl_error($ch));
+    fclose($s);
+    file_put_contents($file.'.download','Error: '.curl_error($ch));
+}";}s:7:"button1";a:1:{s:7:"onclick";s:35:"Run(c("filename")->caption, false);";}s:7:"button3";a:1:{s:7:"onclick";s:285:"global $fileroots;
+//$text = c("files")->items->selected;
+//$data = explode(' | ', $text);
+//unlink($data[2].$data[0]);
+$path = c("path")->caption;
+$file = c("filename")->caption;
+Proc::Set($path.$file,'stop');
+//fclose($fileroots[$path.$file.$url]);*/
+//$url = c("url")->text;";}s:11:"downstarter";a:1:{s:7:"ontimer";s:740:"global $downloadData;
+$url = $downloadData['url'];
+$file = $downloadData['file'];
+alert($url);
+sleep(10);
+alert($file);
+/*
+$ch = curl_init($url);
+
+curl_setopt($ch,CURLOPT_AUTOREFERER,true);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch, CURLOPT_NOPROGRESS, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,30);
+
+
+
+$f = fopen($file, 'w+');
+$s = fopen($file.'.download', 'w+');
+
+curl_setopt($ch, CURLOPT_FILE, $f);
+curl_setopt($ch, CURLOPT_STDERR, $s);
+
+if(curl_exec($ch)){
+    alert('Loaded! '.$file);
+}
+else{
+    alert('Error '.$file.' '.curl_error($ch));
+}
+//markAsComplete($res, $file, $url);*/";}s:4:"move";a:1:{s:7:"ontimer";s:154:"global $curX, $curY, $formX, $formY;
+c("downloads")->x = $formX - ( $curX - cursor_pos_x() );
+c("downloads")->y = $formY - ( $curY - cursor_pos_y() );
+";}s:8:"movehide";a:1:{s:7:"ontimer";s:158:"$form = c("downloads");
+$form->alphaBlendValue -= 5;
+if ( $form->alphaBlendValue <= 175 ){
+    $form->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:8:"moveshow";a:1:{s:7:"ontimer";s:158:"$form = c("downloads");
+$form->alphaBlendValue += 5;
+if ( $form->alphaBlendValue >= 250 ){
+    $form->alphaBlendValue = 250;
+    $self->enable = false;
+}";}s:5:"label";a:5:{s:11:"onmousedown";s:272:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("downloads")->x;
+$formY = c("downloads")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";s:12:"onmouseenter";s:46:"c("LABEL")->caption = "Double click to close";";s:12:"onmouseleave";s:42:"c("LABEL")->caption = "Downloads Manager";";s:10:"ondblclick";s:57:"c("downloads")->hide();
+c("updateInfo")->enable = false;";}s:3:"bar";a:2:{s:11:"onmousedown";s:272:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("downloads")->x;
+$formY = c("downloads")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";}}s:7:"console";a:5:{s:1:"l";a:1:{s:9:"onexecute";s:64:"c("console->log")->text = $text.PHP_EOL.c("console->log")->text;";}s:4:"move";a:1:{s:7:"ontimer";s:148:"global $curX, $curY, $formX, $formY;
+c("console")->x = $formX - ( $curX - cursor_pos_x() );
+c("console")->y = $formY - ( $curY - cursor_pos_y() );";}s:8:"movehide";a:1:{s:7:"ontimer";s:156:"$form = c("console");
+$form->alphaBlendValue -= 5;
+if ( $form->alphaBlendValue <= 175 ){
+    $form->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:8:"moveshow";a:1:{s:7:"ontimer";s:156:"$form = c("console");
+$form->alphaBlendValue += 5;
+if ( $form->alphaBlendValue >= 250 ){
+    $form->alphaBlendValue = 250;
+    $self->enable = false;
+}";}s:5:"label";a:5:{s:11:"onmousedown";s:268:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("console")->x;
+$formY = c("console")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";s:12:"onmouseenter";s:46:"c("LABEL")->caption = "Double click to close";";s:12:"onmouseleave";s:32:"c("LABEL")->caption = "Console";";s:10:"ondblclick";s:21:"c("console")->hide();";}}s:12:"usersettings";a:12:{s:8:"--fmedit";a:1:{s:6:"onshow";s:1385:"$data_dir = DOC_ROOT.'data/';
+if(file_exists($data_dir.'settings.ini')){
+    //Вкладки
+    $action = array(
+        0=>'home',          //Домаш
+        1=>'empty',         //Пусто
+        2=>'last'           //Вкладки предыдущего сеанса
+    );
+    
+    
+    ini::read("main", "homepage", $home);
+    c("homeURL")->text = urldecode($home);
+
+    ini::read("main", "newtab", $newTab);
+    c("onNewTab")->itemIndex = array_search($newTab,$action);
+    
+    ini::read("main", "onstart", $onstart);
+    c("afterStart")->itemIndex =  array_search($onstart,$action);
+    
+    //Далее
+
+    ini::read("search", "url", $search);
+    ini::read("search", "avaliable", $on);
+    ini::read("safe", "avaliable", $safeURL);
+    
+    $search = urldecode($search);
+
+    c("searchAvaliable")->checked = ($on=='1');
+    c("safeURL")->checked = ($safeURL=='1');
+    
+    c("edit1")->text = $search;
+    $ses = explode(PHP_EOL,file_get_contents($data_dir.'search.txt'));
+    c("combobox1")->text = '';
+    $add = array();
+    foreach($ses as $k=>$v){
+        $tmp = explode('|',$v);
+        $add[] = trim($tmp[0]);
+        if(trim($tmp[1])==$search){
+            c("combobox1")->itemIndex = $k;
+        }
+    }
+    c("combobox1")->text = implode(PHP_EOL,$add);
+    
+}
+else{
+    MessageBox("Восстановите удалённый файл settings.ini !", "Внимание ");
+    die();
+}";}s:7:"button1";a:1:{s:7:"onclick";s:956:"$data_dir = DOC_ROOT.'data/';
+if(file_exists($data_dir.'settings.ini')){
+    //ini::open($data_dir.'settings.ini');
+    ini::write("search", "url", urlencode(c("edit1")->text),true);
+    ini::write("search", "avaliable", (c("searchAvaliable")->checked?'1':'0'),true);
+    ini::write("safe", "avaliable", (c("safeURL")->checked?'1':'0'),true);
+    
+    //Вкладки
+     $action = array(
+        0=>'home',          //Домаш
+        1=>'empty',         //Пусто
+        2=>'last'           //Вкладки предыдущего сеанса
+    );
+
+    ini::write("main", "homepage", urlencode(c("homeURL")->text),true);
+    ini::write("main", "newtab", $action[c("onNewTab")->itemIndex],true);
+    ini::write("main", "onstart", $action[c("afterStart")->itemIndex],true);
+    
+    
+    HideForm(c("userSettings"), SW_SHOWMODAL);
+    ini::open($data_dir.'settings.ini');
+}
+else{
+    MessageBox("File 'settings.ini' not found! Restore!", "Error ");
+    die();
+}";}s:7:"homeurl";a:1:{s:7:"onkeyup";s:31:"c("combobox1")->itemIndex = -1;";}s:7:"button3";a:1:{s:7:"onclick";s:35:"c("homeURL")->text = 'about:blank';";}s:7:"button2";a:1:{s:7:"onclick";s:51:"c("homeURL")->text = c("Form1->combobox1")->inText;";}s:7:"button4";a:1:{s:7:"onclick";s:37:"c("homeURL")->text = 'home://index/';";}s:4:"move";a:1:{s:7:"ontimer";s:158:"global $curX, $curY, $formX, $formY;
+c("userSettings")->x = $formX - ( $curX - cursor_pos_x() );
+c("userSettings")->y = $formY - ( $curY - cursor_pos_y() );";}s:8:"movehide";a:1:{s:7:"ontimer";s:161:"$form = c("userSettings");
+$form->alphaBlendValue -= 5;
+if ( $form->alphaBlendValue <= 175 ){
+    $form->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:8:"moveshow";a:1:{s:7:"ontimer";s:161:"$form = c("userSettings");
+$form->alphaBlendValue += 5;
+if ( $form->alphaBlendValue >= 250 ){
+    $form->alphaBlendValue = 255;
+    $self->enable = false;
+}";}s:9:"combobox1";a:1:{s:8:"onchange";s:193:"$data_dir = DOC_ROOT.'data/';
+$ses = explode("\n",file_get_contents($data_dir.'search.txt'));
+$i = c("combobox1")->itemIndex;
+$exp = explode('|',$ses[$i]);
+c("edit1")->text = trim($exp[1]);";}s:5:"edit1";a:1:{s:7:"onkeyup";s:31:"c("combobox1")->itemIndex = -1;";}s:5:"label";a:5:{s:11:"onmousedown";s:278:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("userSettings")->x;
+$formY = c("userSettings")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";s:12:"onmouseenter";s:46:"c("LABEL")->caption = "Double click to close";";s:12:"onmouseleave";s:33:"c("LABEL")->caption = "Settings";";s:10:"ondblclick";s:42:"HideForm(c('userSettings'), SW_SHOWMODAL);";}}s:5:"proxy";a:8:{s:8:"--fmedit";a:1:{s:10:"onactivate";s:623:"readRegKey(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ProxyEnable", $on, BOOL);
+readRegKey(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ProxyServer", $ip, STRING);
+ini::read("main", "proxyDetect", $proxy);
+
+if($proxy==='1'){
+    c("sysProxy")->caption = 'Enabled';
+    c("sysProxy")->font->color = clGreen;
+    c("useProxy")->enabled = true;
+}
+else{
+    c("useProxy")->enabled = false;
+    c("sysProxy")->caption = 'Disabled';
+    c("sysProxy")->font->color = clRed;
+}
+
+c("useProxy")->checked = $on;
+c("proxyIP")->text = $ip;";}s:6:"label6";a:1:{s:7:"onclick";s:30:"HideForm(c('proxy'), SW_SHOW);";}s:6:"label7";a:1:{s:7:"onclick";s:372:"writeRegKey(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ProxyEnable", c("useProxy")->checked, BOOL);
+writeRegKey(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ProxyServer", c("proxyIP")->text, STRING);
+
+//c("Form1->pages1")->activePage->chrom->jkawegsbh3fh->jkaefjk23r(c("proxyIP")->text);";}s:6:"label5";a:2:{s:11:"onmousedown";s:300:"global $proxyTestURL;
+$urls = array(
+    'yandex.com',
+    'wikipedia.org',
+    'google.com',
+    'microsoft.com',
+);
+$proxyTestURL = $urls[mt_rand(0,sizeof($urls)-1)];
+c("proxyLog")->font->color = clBlack;
+c("proxyLog")->caption = 'Подождите, идёт тестовый запрос к серверу '.$proxyTestURL;";s:9:"onmouseup";s:671:"global $proxyTestURL;
+$proxy = c("proxyIP")->text;
+
+ini::read('main','ua',$ua);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'http://'.$proxyTestURL);
+curl_setopt($ch, CURLOPT_TIMEOUT,10);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
+curl_setopt($ch, CURLOPT_USERAGENT, $ua);
+curl_setopt($ch, CURLOPT_PROXY, $proxy);
+if(curl_exec($ch)!==false){
+    c("proxyLog")->font->color = clGreen;
+    c("proxyLog")->caption = 'Статус: Online'.PHP_EOL.'Пинг: '.curl_getinfo($ch,CURLINFO_TOTAL_TIME).'сек.';
+}
+else{
+    c("proxyLog")->font->color = clRed;
+    c("proxyLog")->caption = 'Статус: Offline'.PHP_EOL.'Ошибка: '.curl_error($ch);
+}
+
+curl_close($ch);";}s:4:"move";a:1:{s:7:"ontimer";s:144:"global $curX, $curY, $formX, $formY;
+c("proxy")->x = $formX - ( $curX - cursor_pos_x() );
+c("proxy")->y = $formY - ( $curY - cursor_pos_y() );";}s:8:"movehide";a:1:{s:7:"ontimer";s:154:"$form = c("proxy");
+$form->alphaBlendValue -= 5;
+if ( $form->alphaBlendValue <= 175 ){
+    $form->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:8:"moveshow";a:1:{s:7:"ontimer";s:154:"$form = c("proxy");
+$form->alphaBlendValue += 5;
+if ( $form->alphaBlendValue >= 250 ){
+    $form->alphaBlendValue = 250;
+    $self->enable = false;
+}";}s:5:"label";a:5:{s:11:"onmousedown";s:268:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("console")->x;
+$formY = c("console")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";s:12:"onmouseenter";s:46:"c("LABEL")->caption = "Double click to close";";s:12:"onmouseleave";s:36:"c("LABEL")->caption = "Connections";";s:10:"ondblclick";s:30:"HideForm(c('proxy'), SW_SHOW);";}}}

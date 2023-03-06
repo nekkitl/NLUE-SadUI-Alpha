@@ -1,0 +1,13 @@
+;#################
+; sadUI / nekkitl
+; 22:44/03/09/19
+;#################
+
+[GIMP 2]
+path = "D:\GIMP 2\bin\gimp-2.10.exe"
+
+[Vegas Pro 15]
+path = "C:\Program Files\VEGAS\VEGAS Pro 15.0\vegas150.exe"
+
+[OBS Studio]
+path = "C:\Program Files\OBS\bin\64bit\obs64.exe"

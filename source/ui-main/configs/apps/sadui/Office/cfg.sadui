@@ -1,0 +1,11 @@
+;#################
+; sadUI / nekkitl
+; 22:44/03/09/19
+;#################
+
+[RTF-Editor]
+path = RTF-Editor.exe
+ver = "Build 017"
+size = "972 kb"
+info = "Simple usefull RTF editor."
+author = "@nekkitl"

@@ -1,0 +1,11 @@
+;#################
+; sadUI / nekkitl
+; 22:44/03/09/19
+;#################
+
+[SiteBlocker]
+path = SiteBlocker.exe
+ver = "build 003"
+size = "878 kb"
+info = "Block adresses and sites using hosts file."
+author = "@nekkitl"

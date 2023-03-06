@@ -1,0 +1,71 @@
+a:1:{s:5:"form1";a:19:{s:9:"spbutton1";a:1:{s:7:"onclick";s:61:"c("openDlg1")->fileName = NULL;
+c("richEdit1")->text = NULL;";}s:9:"spbutton2";a:1:{s:7:"onclick";s:89:"if(c("openDlg1")->execute()){
+ c("richEdit1")->loadFromFile(c("openDlg1")->fileName);
+}";}s:9:"spbutton3";a:1:{s:7:"onclick";s:152:"if(file_exists(c("openDlg1")->fileName)){
+ file_put_contents(c("openDlg1")->fileName, c("richEdit1")->RTFText);
+}else{
+ c("spButton4")->doClick();
+}";}s:9:"spbutton4";a:1:{s:7:"onclick";s:385:"if(c("saveDlg1")->execute()){
+ if(fileExt(c("saveDlg1")->fileName) <> "rtf"){
+  c("saveDlg1")->fileName .= ".rtf";
+ }
+ if(file_exists(c("saveDlg1")->fileName)){
+  $msg = messageDlg("Перезаписать существующий файл?", mtCustom, MB_YESNO);
+ }else{
+  $msg = mrYes;
+ }
+ switch($msg){
+  case mrYes: file_put_contents(c("saveDlg1")->fileName, c("richEdit1")->RTFText); break;
+ }
+}";}s:9:"spbutton5";a:1:{s:7:"onclick";s:33:"c("richEdit1")->cutToClipboard();";}s:9:"spbutton6";a:1:{s:7:"onclick";s:34:"c("richEdit1")->copyToClipboard();";}s:9:"spbutton7";a:1:{s:7:"onclick";s:37:"c("richEdit1")->pasteFromClipboard();";}s:9:"spbutton8";a:1:{s:7:"onclick";s:45:"c("richEdit1")->bold = !c("richEdit1")->bold;";}s:9:"spbutton9";a:1:{s:7:"onclick";s:49:"c("richEdit1")->italic = !c("richEdit1")->italic;";}s:10:"spbutton10";a:1:{s:7:"onclick";s:55:"c("richEdit1")->underline = !c("richEdit1")->underline;";}s:10:"spbutton11";a:1:{s:7:"onclick";s:55:"c("richEdit1")->strikeOut = !c("richEdit1")->strikeOut;";}s:10:"spbutton12";a:1:{s:7:"onclick";s:602:"if(c("fontDlg1")->execute()){
+ c("richEdit1")->fontName = c("fontDlg1")->font->name;
+ c("richEdit1")->fontSize = c("fontDlg1")->font->size;
+ c("richEdit1")->fontColor = c("fontDlg1")->font->color;
+ c("richEdit1")->fontStyle = c("fontDlg1")->font->style;
+
+ $style = c("fontDlg1")->font->style;
+ $fs = array("fsUnderline"=>"0",
+             "fsStrikeOut"=>"0",
+             "fsItalic"=>"0",
+             "fsBold"=>"0");
+
+ foreach($style as $k=>$v){
+  if($v){$fs[$v] = true;}
+ }
+ foreach($fs as $k=>$v){
+  $eval .= 'c("richEdit1")->'.substr($k, 2).' = '.$v.';' ._BR_;
+ }
+ eval($eval);
+}";}s:10:"spbutton13";a:1:{s:7:"onclick";s:86:"if(c("colorDlg1")->execute()){
+ c("richEdit1")->fontColor = c("colorDlg1")->color;
+}";}s:6:"panel1";a:1:{s:12:"onmouseenter";s:45:"$self->w = 98;
+c("version")->visible = true;";}s:4:"move";a:1:{s:7:"ontimer";s:147:"global $curX, $curY, $formX, $formY, $formid;
+$formid->x = $formX - ( $curX - cursor_pos_x() );
+$formid->y = $formY - ( $curY - cursor_pos_y() );";}s:8:"moveshow";a:1:{s:7:"ontimer";s:156:"global $formid;
+$formid->alphaBlendValue += 5;
+if ( $formid->alphaBlendValue >= 250 ){
+    $formid->alphaBlendValue = 255;
+    $self->enable = false;
+}";}s:8:"movehide";a:1:{s:7:"ontimer";s:156:"global $formid;
+$formid->alphaBlendValue -= 5;
+if ( $formid->alphaBlendValue <= 175 ){
+    $formid->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:5:"label";a:5:{s:11:"onmousedown";s:313:"global $curX, $curY, $formX, $formY, $formid;
+
+$formid = c("Form1");  // название формы
+
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = $formid->x;
+$formY = $formid->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";s:12:"onmouseenter";s:32:"c("exit_frame")->visible = true;";s:12:"onmouseleave";s:33:"c("exit_frame")->visible = false;";s:10:"ondblclick";s:13:"app::close();";}s:9:"richedit1";a:1:{s:12:"onmouseenter";s:52:"c("panel1")->w = 25;
+c("version")->visible = false;";}}}

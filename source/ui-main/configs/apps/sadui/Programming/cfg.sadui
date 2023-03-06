@@ -1,0 +1,11 @@
+;#################
+; sadUI / nekkitl
+; 22:44/03/09/19
+;#################
+
+[PHP EchoScriptEditor]
+path = PHP_EchoScriptEditor.exe
+ver = "0.6 (sadUI ed.)"
+size = "1 390 kb"
+info = "PHP 5.3 Script Editor and Runner"
+author = "Oleg Sadovoi and Silent"

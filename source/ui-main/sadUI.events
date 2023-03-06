@@ -1,0 +1,856 @@
+a:6:{s:7:"aboutme";a:7:{s:6:"image1";a:2:{s:11:"onmousedown";s:268:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("aboutme")->x;
+$formY = c("aboutme")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";}s:4:"move";a:1:{s:7:"ontimer";s:148:"global $curX, $curY, $formX, $formY;
+c("aboutme")->x = $formX - ( $curX - cursor_pos_x() );
+c("aboutme")->y = $formY - ( $curY - cursor_pos_y() );";}s:8:"movehide";a:1:{s:7:"ontimer";s:154:"c("aboutme")->alphaBlendValue -= 5;
+if ( c("aboutme")->alphaBlendValue <= 175 ){
+    c("aboutme")->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:8:"moveshow";a:1:{s:7:"ontimer";s:154:"c("aboutme")->alphaBlendValue += 5;
+if ( c("aboutme")->alphaBlendValue >= 250 ){
+    c("aboutme")->alphaBlendValue = 255;
+    $self->enable = false;
+}";}s:6:"label2";a:1:{s:7:"onclick";s:32:"HideForm(c('aboutme'), SW_SHOW);";}s:12:"label_window";a:2:{s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";s:11:"onmousedown";s:268:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("aboutme")->x;
+$formY = c("aboutme")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";}s:8:"--fmedit";a:1:{s:8:"oncreate";s:29:"$self->doubleBuffered = true;";}}s:4:"dock";a:7:{s:5:"clock";a:1:{s:7:"ontimer";s:101:"$timecor = date("H") - 1;
+c("clock_t")->caption = $timecor.date(":i"); //or H:i:s  --- seconds added";}s:15:"t_remove_device";a:2:{s:12:"onmouseenter";s:87:"c("t_info_helper")->caption = "Removable Devices";
+c("t_info_helper")->visible = true;";s:12:"onmouseleave";s:36:"c("t_info_helper")->visible = false;";}s:10:"t_keyboard";a:2:{s:12:"onmouseenter";s:84:"c("t_info_helper")->caption = "Input Settings";
+c("t_info_helper")->visible = true;";s:12:"onmouseleave";s:36:"c("t_info_helper")->visible = false;";}s:7:"t_disks";a:2:{s:12:"onmouseenter";s:77:"c("t_info_helper")->caption = "6 Disks";
+c("t_info_helper")->visible = true;";s:12:"onmouseleave";s:36:"c("t_info_helper")->visible = false;";}s:9:"t_network";a:2:{s:12:"onmouseenter";s:119:"$temp = file_get_contents("cache/docktemp");
+c("t_info_helper")->caption = $temp;
+c("t_info_helper")->visible = true;";s:12:"onmouseleave";s:36:"c("t_info_helper")->visible = false;";}s:7:"clock_t";a:2:{s:12:"onmouseenter";s:84:"c("t_info_helper")->caption = date("D, d M Y");
+c("t_info_helper")->visible = true;";s:12:"onmouseleave";s:36:"c("t_info_helper")->visible = false;";}s:8:"--fmedit";a:1:{s:8:"oncreate";s:82:"file_put_contents("cache/docktemp","IP: ".GetIP());
+$self->doubleBuffered = true;";}}s:3:"top";a:87:{s:10:"m_settings";a:2:{s:12:"onmouseenter";s:224:"$self->transparent = false;
+c("m_programs")->transparent = true;
+c("menu_programs")->visible = false;
+c("m_windows_apps")->transparent = true;
+c("menu_windows_apps")->visible = false;
+c("menu_settings")->visible = true;";s:12:"onmouseleave";s:111:"if( c("menu_settings")->visible == true){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";}s:10:"m_programs";a:2:{s:12:"onmouseenter";s:419:"ini::open("configs/packages.sadui");
+ini::readSections($sections);
+c("sadui_programms")->text = $sections;
+
+$history = file_get_contents("cache/history.sadui");
+c("sadui_history")->text = $history;
+
+c("menu_power")->visible = false;
+c("m_sub_main")->transparent = true;
+$self->transparent = false;
+c("m_settings")->transparent = true;
+c("menu_settings")->visible = false;
+c("menu_programs")->visible = true;";s:12:"onmouseleave";s:111:"if( c("menu_programs")->visible == true){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";}s:6:"m_main";a:1:{s:12:"onmouseenter";s:147:"c("m_programs")->transparent = true;
+c("menu_programs")->visible = false;
+c("m_sub_main")->transparent = false;
+c("menu_power")->visible = true;";}s:10:"m_sub_main";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:13:"processkiller";a:3:{s:12:"onmouseenter";s:72:"$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:61:"c("xMenus")->enable = true;
+run("processkiller.exe", false);";}s:4:"disk";a:3:{s:12:"onmouseenter";s:72:"$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:61:"
+c("xMenus")->enable = true;
+run("diskmanager.exe", false);";}s:6:"xmenus";a:1:{s:7:"ontimer";s:15:"fx_menu_zero();";}s:7:"s_login";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:15:"fx_menu_zero();";}s:5:"s_sec";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:15:"fx_menu_zero();";}s:6:"s_date";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:15:"fx_menu_zero();";}s:7:"s_theme";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:15:"fx_menu_zero();";}s:7:"s_disks";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:15:"fx_menu_zero();";}s:9:"s_network";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:15:"fx_menu_zero();";}s:11:"pc_shutdown";a:3:{s:12:"onmouseenter";s:102:"$self->transparent = false;
+
+$cwhite = c("colors_white")->brushColor;
+$self->font->color = $cwhite;";s:12:"onmouseleave";s:99:"$self->transparent = true;
+$cblack = c("colors_black")->brushColor;
+$self->font->color = $cblack;";s:7:"onclick";s:13:"app::close();";}s:9:"pc_reboot";a:2:{s:12:"onmouseenter";s:102:"$self->transparent = false;
+$cwhite = c("colors_white")->brushColor;
+$self->font->color = $cwhite;
+";s:12:"onmouseleave";s:99:"$self->transparent = true;
+$cblack = c("colors_black")->brushColor;
+$self->font->color = $cblack;";}s:10:"menu_power";a:1:{s:12:"onmouseenter";s:32:"c("menu_power")->visible = true;";}s:8:"pc_sleep";a:2:{s:12:"onmouseenter";s:102:"$self->transparent = false;
+$cwhite = c("colors_white")->brushColor;
+$self->font->color = $cwhite;
+";s:12:"onmouseleave";s:99:"$self->transparent = true;
+$cblack = c("colors_black")->brushColor;
+$self->font->color = $cblack;";}s:12:"pc_hibernate";a:2:{s:12:"onmouseenter";s:102:"$self->transparent = false;
+$cwhite = c("colors_white")->brushColor;
+$self->font->color = $cwhite;
+";s:12:"onmouseleave";s:99:"$self->transparent = true;
+$cblack = c("colors_black")->brushColor;
+$self->font->color = $cblack;";}s:11:"pc_scrsaver";a:2:{s:12:"onmouseenter";s:102:"$self->transparent = false;
+$cwhite = c("colors_white")->brushColor;
+$self->font->color = $cwhite;
+";s:12:"onmouseleave";s:99:"$self->transparent = true;
+$cblack = c("colors_black")->brushColor;
+$self->font->color = $cblack;";}s:12:"img_shutdown";a:2:{s:12:"onmouseenter";s:124:"$cwhite = c("colors_white")->brushColor;
+$obj = c("pc_shutdown");
+$obj->transparent = false;
+$obj->font->color = $cwhite;";s:12:"onmouseleave";s:123:"$cblack = c("colors_black")->brushColor;
+$obj = c("pc_shutdown");
+$obj->transparent = true;
+$obj->font->color = $cblack;";}s:10:"img_reboot";a:2:{s:12:"onmouseenter";s:122:"$cwhite = c("colors_white")->brushColor;
+$obj = c("pc_reboot");
+$obj->transparent = false;
+$obj->font->color = $cwhite;";s:12:"onmouseleave";s:121:"$cblack = c("colors_black")->brushColor;
+$obj = c("pc_reboot");
+$obj->transparent = true;
+$obj->font->color = $cblack;";}s:12:"img_scrsaver";a:2:{s:12:"onmouseenter";s:124:"$cwhite = c("colors_white")->brushColor;
+$obj = c("pc_scrsaver");
+$obj->transparent = false;
+$obj->font->color = $cwhite;";s:12:"onmouseleave";s:123:"$cblack = c("colors_black")->brushColor;
+$obj = c("pc_scrsaver");
+$obj->transparent = true;
+$obj->font->color = $cblack;";}s:9:"img_sleep";a:2:{s:12:"onmouseenter";s:121:"$cwhite = c("colors_white")->brushColor;
+$obj = c("pc_sleep");
+$obj->transparent = false;
+$obj->font->color = $cwhite;";s:12:"onmouseleave";s:120:"$cblack = c("colors_black")->brushColor;
+$obj = c("pc_sleep");
+$obj->transparent = true;
+$obj->font->color = $cblack;";}s:13:"img_hibernate";a:2:{s:12:"onmouseleave";s:124:"$cblack = c("colors_black")->brushColor;
+$obj = c("pc_hibernate");
+$obj->transparent = true;
+$obj->font->color = $cblack;";s:12:"onmouseenter";s:125:"$cwhite = c("colors_white")->brushColor;
+$obj = c("pc_hibernate");
+$obj->transparent = false;
+$obj->font->color = $cwhite;";}s:12:"fx_menu_zero";a:1:{s:9:"onexecute";s:551:"c("menu_windows_apps")->visible = false;
+c("m_windows_apps")->transparent = true;
+
+c("win_run")->transparent = true;
+c("menu_win_run")->visible = false;
+c("win_run_path")->text = "";
+
+c("win_console")->transparent = true;
+c("win_cmd_menu")->visible = false;
+c("win_cmd_command")->text = "";
+
+c("m_settings")->transparent = true;
+c("menu_settings")->visible = false;
+
+c("menu_programs")->visible = false;
+c("m_programs")->transparent = true;
+
+c("menu_power")->visible = false;
+c("m_sub_main")->transparent = true;
+
+prog_sec_clear();";}s:6:"label4";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:6:"label5";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:6:"label6";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:6:"label7";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:13:"cur_main_view";a:1:{s:12:"onmouseenter";s:356:"c("cur_main_create")->transparent = true;
+$mainmenu = c("cur_menu");
+$view = c("cur_menu_view");
+$mainmenux = $mainmenu->x;
+$mainmenuy = $mainmenu->y;
+$mainmenuw = $mainmenu->w;
+$view->y = $mainmenuy; // +26 if correct >
+$view->x = $mainmenux + $mainmenuw;
+$self->transparent = false;
+$view->visible = true;
+c("cur_menu_create")->visible = false;";}s:15:"cur_menu_reload";a:3:{s:12:"onmouseenter";s:162:"$view = c("cur_menu_view");
+$self->transparent = false;
+$view->visible = false;
+c("cur_main_view")->transparent = true;
+c("cur_menu_create")->visible = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:115:"c("top->cur_menu")->visible = false;
+c("top->cur_menu_view")->visible = false;
+prog_sec_clear();
+fx_menu_zero();";}s:15:"cur_main_create";a:1:{s:12:"onmouseenter";s:335:"$viewold = c("cur_menu_view");
+$viewold->visible = false;
+$mainmenu = c("cur_menu");
+$view = c("cur_menu_create");
+$mainmenux = $mainmenu->x;
+$mainmenuy = $mainmenu->y;
+$mainmenuw = $mainmenu->w;
+$view->y = $mainmenuy; // +52 if correct >
+$view->x = $mainmenux + $mainmenuw;
+$self->transparent = false;
+$view->visible = true;";}s:17:"cur_main_settings";a:3:{s:12:"onmouseenter";s:110:"$self->transparent = false;
+c("cur_main_create")->transparent = true;
+c("cur_menu_create")->visible = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:97:"c("top->cur_menu")->visible = false;
+c("top->cur_menu_view")->visible = false;
+cur_wall_next();";}s:9:"s_updates";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:15:"fx_menu_zero();";}s:14:"m_windows_apps";a:2:{s:12:"onmouseenter";s:144:"$self->transparent = false;
+c("m_settings")->transparent = true;
+c("menu_settings")->visible = false;
+c("menu_windows_apps")->visible = true;";s:12:"onmouseleave";s:115:"if( c("menu_windows_apps")->visible == true){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";}s:12:"win_explorer";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:8:"--fmedit";a:1:{s:8:"oncreate";s:109:"err_no();
+$self->doubleBuffered = true;
+xCore();
+animate::toSpeed(5);
+animate::hspeed(c("notification"));";}s:7:"win_run";a:1:{s:12:"onmouseenter";s:70:"c("win_run")->transparent = false;
+c("menu_win_run")->visible = true;";}s:13:"win_adm_tools";a:2:{s:12:"onmouseenter";s:99:"$self->transparent = false;
+c("win_run")->transparent = true;
+c("menu_win_run")->visible = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:11:"win_c_panel";a:2:{s:12:"onmouseenter";s:99:"$self->transparent = false;
+c("win_run")->transparent = true;
+c("menu_win_run")->visible = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:10:"win_dxdiag";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:12:"win_msconfig";a:2:{s:12:"onmouseenter";s:103:"$self->transparent = false;
+c("win_cmd_menu")->visible = false;
+c("win_console")->transparent = true;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:11:"win_regedit";a:2:{s:12:"onmouseenter";s:103:"$self->transparent = false;
+c("win_cmd_menu")->visible = false;
+c("win_console")->transparent = true;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:11:"win_console";a:1:{s:12:"onmouseenter";s:63:"$self->transparent = false;
+c("win_cmd_menu")->visible = true;";}s:8:"rzd_win3";a:1:{s:12:"onmouseenter";s:146:"c("win_run")->transparent = true;
+c("menu_win_run")->visible = false;
+c("win_cmd_menu")->visible = false;
+c("win_console")->transparent = true;";}s:9:"s_aboutui";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:49:"ShowForm(c('aboutme'), SW_SHOW);
+fx_menu_zero();";}s:9:"s_ui_help";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:15:"fx_menu_zero();";}s:10:"win_run_it";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:335:"$path = "C:/Windows/System32/";
+$file = c("win_run_path")->text;
+$combo = $path.$file;
+
+if(fileExt($combo.".exe") == "exe"){run($combo,false); fx_menu_zero();} //run SysDIR
+if(fileExt($file) == "exe"){run($combo,false); fx_menu_zero();} //run SysDIR
+else{ c("win_inf_runapplication")->caption = "Isn't application";} //Not exec
+";}s:6:"win_ie";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:11:"win_notepad";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:6:"label1";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:126:"ShowForm(c('widget'), SW_SHOW);
+HideForm(c('top'), SW_SHOW);
+HideForm(c('dock'), SW_SHOW);
+HideForm(c('wallper'), SW_SHOW);";}s:20:"win_cmd_command_exec";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:49:"$exec = c("win_cmd_command")->text;
+exec($exec);";}s:8:"rzd_win2";a:1:{s:12:"onmouseenter";s:74:"c("win_cmd_menu")->visible = false;
+c("win_console")->transparent = true;";}s:5:"xcore";a:1:{s:9:"onexecute";s:63:"//GLOBAL
+ini::open("configs/core.sadui");
+
+// get core tasks";}s:15:"sadui_programms";a:1:{s:10:"ondblclick";s:383:"$selected = c("sadui_programms")->items->selected;
+$dir = "/configs/apps/".$prog_temp_dir.$prog_temp_category."cfg.sadui";
+ini::open($dir);
+ini::read($selected, "path", $path);
+run($path, false);
+
+file_put_contents('cache/history.sadui', PHP_EOL .date("d M: ").$selected, FILE_APPEND);
+$history = file_get_contents("cache/history.sadui");
+c("sadui_history")->text = $history;";}s:16:"rzd_browsers____";a:1:{s:12:"onmouseenter";s:43:"c("sadui_programms")->items->selected = -1;";}s:6:"label2";a:1:{s:12:"onmouseenter";s:43:"c("sadui_programms")->items->selected = -1;";}s:6:"label3";a:1:{s:12:"onmouseenter";s:43:"c("sadui_programms")->items->selected = -1;";}s:6:"label8";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:137:"if ($prog_temp_dir == "sadui/" and $prog_temp_category == "Inet/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:97:"c("prog_temp_dir")->value = "sadui/";
+c("prog_temp_category")->value = "Inet/";
+prog_refresh();";}s:6:"label9";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:139:"if ($prog_temp_dir == "sadui/" and $prog_temp_category == "Office/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:99:"c("prog_temp_dir")->value = "sadui/";
+c("prog_temp_category")->value = "Office/";
+prog_refresh();";}s:7:"label10";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:144:"if ($prog_temp_dir == "sadui/" and $prog_temp_category == "Programming/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:104:"c("prog_temp_dir")->value = "sadui/";
+c("prog_temp_category")->value = "Programming/";
+prog_refresh();";}s:7:"label11";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:141:"if ($prog_temp_dir == "sadui/" and $prog_temp_category == "Graphics/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:101:"c("prog_temp_dir")->value = "sadui/";
+c("prog_temp_category")->value = "Graphics/";
+prog_refresh();";}s:7:"label12";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:138:"if ($prog_temp_dir == "sadui/" and $prog_temp_category == "Admin/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:98:"c("prog_temp_dir")->value = "sadui/";
+c("prog_temp_category")->value = "Admin/";
+prog_refresh();";}s:7:"label13";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:137:"if ($prog_temp_dir == "sadui/" and $prog_temp_category == "Misc/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:97:"c("prog_temp_dir")->value = "sadui/";
+c("prog_temp_category")->value = "Misc/";
+prog_refresh();";}s:7:"label14";a:3:{s:12:"onmouseenter";s:72:"$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:13:"msg("Soon.");";}s:7:"label15";a:3:{s:12:"onmouseenter";s:72:"$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:13:"msg("Soon.");";}s:7:"label16";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:138:"if ($prog_temp_dir == "sadui/" and $prog_temp_category == "Media/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:98:"c("prog_temp_dir")->value = "sadui/";
+c("prog_temp_category")->value = "Media/";
+prog_refresh();";}s:7:"label17";a:3:{s:12:"onmouseenter";s:72:"$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:25:"run("preset.bat", false);";}s:7:"label18";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:139:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Office/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:99:"c("prog_temp_dir")->value = "links/";
+c("prog_temp_category")->value = "Office/";
+prog_refresh();";}s:7:"label19";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:137:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Inet/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:97:"c("prog_temp_dir")->value = "links/";
+c("prog_temp_category")->value = "Inet/";
+prog_refresh();";}s:7:"label20";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:138:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Media/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:98:"c("prog_temp_dir")->value = "links/";
+c("prog_temp_category")->value = "Media/";
+prog_refresh();";}s:7:"label21";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:141:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Graphics/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:101:"c("prog_temp_dir")->value = "links/";
+c("prog_temp_category")->value = "Graphics/";
+prog_refresh();";}s:7:"label22";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:144:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Programming/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:104:"c("prog_temp_dir")->value = "links/";
+c("prog_temp_category")->value = "Programming/";
+prog_refresh();";}s:7:"label24";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:137:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Misc/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:97:"c("prog_temp_dir")->value = "links/";
+c("prog_temp_category")->value = "Misc/";
+prog_refresh();";}s:7:"label25";a:3:{s:12:"onmouseenter";s:72:"$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:13:"msg("Soon.");";}s:7:"label26";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:138:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Games/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:98:"c("prog_temp_dir")->value = "links/";
+c("prog_temp_category")->value = "Games/";
+prog_refresh();";}s:7:"label27";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:138:"if ($prog_temp_dir == "sadui/" and $prog_temp_category == "Games/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:98:"c("prog_temp_dir")->value = "sadui/";
+c("prog_temp_category")->value = "Games/";
+prog_refresh();";}s:7:"label28";a:3:{s:12:"onmouseenter";s:72:"$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:159:"$path = "cache/history.sadui";
+file_delete($path);
+file_put_contents($path,"Last clean: ". date("d M Y"));
+c("sadui_history")->text = "Done. \nNo history.";";}s:7:"label29";a:3:{s:12:"onmouseenter";s:72:"$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:68:"ShowForm(c('programsmanager'), SW_SHOW);
+$prog_temp_dir = "links/";";}s:13:"menu_programs";a:1:{s:12:"onmouseenter";s:43:"c("sadui_programms")->items->selected = -1;";}s:12:"prog_refresh";a:1:{s:9:"onexecute";s:166:"$dir = $prog_temp_dir.$prog_temp_category."cfg.sadui";
+$cfg = "configs/apps/".$dir;
+ini::open($cfg);
+ini::readSections($ress);
+c("sadui_programms")->text = $ress;";}s:14:"prog_sec_clear";a:1:{s:9:"onexecute";s:521:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;";}s:7:"label30";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label31";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label32";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label33";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:15:"srv_anim_notifi";a:1:{s:7:"ontimer";s:118:"$xpos = c("notification")->x;
+//c("notification")->x = $xpos + 5;
+if($xpos > c("top")->w) { $self->enable = false; }";}}s:7:"wallper";a:7:{s:4:"logo";a:3:{s:12:"onmouseenter";s:15:"fx_menu_zero();";s:11:"onmousedown";s:136:"$cmenu = c("top->cur_menu");
+
+if( $button == 1){
+$cmenu->y = cursor_pos_y();
+$cmenu->x = cursor_pos_x();
+$cmenu->visible = true;
+}";s:7:"onclick";s:79:"c("top->cur_menu")->visible = false;
+c("top->cur_menu_view")->visible = false;";}s:8:"--fmedit";a:1:{s:8:"oncreate";s:77:"$self->doubleBuffered = true;
+$w = c("wallper")->w;
+c("wall_left")->w = $w;";}s:11:"underground";a:1:{s:7:"ontimer";s:216:"$w = c("wallper")->w;
+$path = "/wall/";
+$rand = rand(1,5);
+c("wall_left")->loadFromFile($path.$rand.".jpg");
+$rand1 = rand(5,10);
+c("wall_right")->loadFromFile($path.$rand1.".jpg");
+
+c("right")->enable = true;";}s:5:"right";a:1:{s:7:"ontimer";s:250:"$w = c("wallper")->w;
+if( c("wall_left")->w == 0){
+wall_anim();
+}
+else{
+$wl = c("wall_left")->w;
+$wr = c("wall_right")->w;
+$xr = c("wall_right")->x;
+c("wall_right")->w = $wr + 1;
+c("wall_right")->x = $xr - 1;
+c("wall_left")->w = $wl - 1;
+}";}s:11:"wall_loader";a:1:{s:7:"ontimer";s:339:"$w = c("wallper")->w;
+c("wall_left")->w = $w;
+$path = "/wall/";
+
+$rand = rand(1,5);
+c("wall_left")->loadFromFile($path.$rand.".jpg");
+$rand1 = rand(5,10);
+c("wall_right")->loadFromFile($path.$rand1.".jpg");
+
+if( c("wall_left")->w == $w){
+c("right")->enable = true;
+}
+if( c("wall_right")->w == $w){
+c("left")->enable = true;
+}";}s:9:"wall_anim";a:1:{s:9:"onexecute";s:154:"$w = c("wallper")->w;
+c("wall_left")->w = $w;
+c("wall_right")->x = $w;
+c("wall_right")->w = 0;
+c("wall_left")->repaint();
+c("wall_right")->repaint();";}s:13:"cur_wall_next";a:1:{s:9:"onexecute";s:163:"$path = "/wall/";
+$rand = rand(1,5);
+c("wall_left")->loadFromFile($path.$rand.".jpg");
+$rand1 = rand(5,10);
+c("wall_right")->loadFromFile($path.$rand1.".jpg");";}}s:6:"widget";a:2:{s:8:"--fmedit";a:1:{s:8:"oncreate";s:29:"$self->doubleBuffered = true;";}s:7:"back2ui";a:3:{s:7:"onclick";s:126:"HideForm(c('widget'), SW_SHOW);
+ShowForm(c('wallper'), SW_SHOW);
+ShowForm(c('dock'), SW_SHOW);
+ShowForm(c('top'), SW_SHOW);";s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}}s:15:"programsmanager";a:15:{s:8:"--fmedit";a:1:{s:8:"oncreate";s:29:"$self->doubleBuffered = true;";}s:6:"label2";a:3:{s:12:"onmouseenter";s:72:"$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:40:"HideForm(c('programsmanager'), SW_SHOW);";}s:6:"label6";a:3:{s:12:"onmouseenter";s:72:"$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:289:"if( c("link_category")->items->selected == ""){
+msg("Select category!");    }
+if( c("link_path")->text == ""){
+msg("I'm not Vanga.\nPlease, select path!");  }
+if( c("link_name")->text == ""){
+msg("Well, and how I must show this link for you?\nWhats an application name?"); }
+
+// if(";}s:6:"label5";a:2:{s:12:"onmouseenter";s:72:"$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label10";a:3:{s:12:"onmouseenter";s:72:"$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:178:"c("link_dlg")->title = "Select something to create link";
+$result = c("link_dlg")->execute();
+if ($result){
+$path = c("link_dlg")->fileName;
+c("link_path")->text = $path;   }";}s:15:"sadui_programms";a:1:{s:7:"onclick";s:816:"$selected = c("sadui_programms")->items->selected;
+$dir = "/configs/apps/".$prog_temp_dir.$prog_temp_category."cfg.sadui";
+ini::open($dir);
+ini::read($selected, "path", $path);
+c("link_name")->text = $selected;
+c("link_path")->text = $path;
+
+if( $prog_temp_category == "Inet/"){ c("link_category")->inText = "Inet"; }
+if( $prog_temp_category == "Office/"){ c("link_category")->inText = "Office"; }
+if( $prog_temp_category == "Media/"){ c("link_category")->inText = "Media"; }
+if( $prog_temp_category == "Graphics/"){ c("link_category")->inText = "Graphics"; }
+if( $prog_temp_category == "Programming/"){ c("link_category")->inText = "Programming"; }
+if( $prog_temp_category == "Misc/"){ c("link_category")->inText = "Misc"; }
+if( $prog_temp_category == "Games/"){ c("link_category")->inText = "Games"; }";}s:6:"label3";a:1:{s:12:"onmouseenter";s:43:"c("sadui_programms")->items->selected = -1;";}s:7:"label19";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:137:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Inet/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:107:"c("top->prog_temp_dir")->value = "links/";
+c("top->prog_temp_category")->value = "Inet/";
+link_refresh();";}s:7:"label18";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:139:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Office/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:109:"c("top->prog_temp_dir")->value = "links/";
+c("top->prog_temp_category")->value = "Office/";
+link_refresh();";}s:7:"label20";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:138:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Media/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:108:"c("top->prog_temp_dir")->value = "links/";
+c("top->prog_temp_category")->value = "Media/";
+link_refresh();";}s:7:"label21";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:141:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Graphics/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:111:"c("top->prog_temp_dir")->value = "links/";
+c("top->prog_temp_category")->value = "Graphics/";
+link_refresh();";}s:7:"label22";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:144:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Programming/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:114:"c("top->prog_temp_dir")->value = "links/";
+c("top->prog_temp_category")->value = "Programming/";
+link_refresh();";}s:7:"label24";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:137:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Misc/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:107:"c("top->prog_temp_dir")->value = "links/";
+c("top->prog_temp_category")->value = "Misc/";
+link_refresh();";}s:7:"label26";a:3:{s:12:"onmouseenter";s:595:"c("label8")->transparent = true;
+c("label9")->transparent = true;
+c("label10")->transparent = true;
+c("label11")->transparent = true;
+c("label12")->transparent = true;
+c("label13")->transparent = true;
+c("label16")->transparent = true;
+c("label18")->transparent = true;
+c("label19")->transparent = true;
+c("label20")->transparent = true;
+c("label21")->transparent = true;
+c("label22")->transparent = true;
+c("label24")->transparent = true;
+c("label26")->transparent = true;
+c("label27")->transparent = true;
+$self->transparent = false;
+c("sadui_programms")->items->selected = -1;";s:12:"onmouseleave";s:138:"if ($prog_temp_dir == "links/" and $prog_temp_category == "Games/"){
+$self->transparent = false;
+}
+else{
+$self->transparent = true;
+}";s:7:"onclick";s:108:"c("top->prog_temp_dir")->value = "links/";
+c("top->prog_temp_category")->value = "Games/";
+link_refresh();";}s:12:"link_refresh";a:1:{s:9:"onexecute";s:166:"$dir = $prog_temp_dir.$prog_temp_category."cfg.sadui";
+$cfg = "configs/apps/".$dir;
+ini::open($cfg);
+ini::readSections($ress);
+c("sadui_programms")->text = $ress;";}}}

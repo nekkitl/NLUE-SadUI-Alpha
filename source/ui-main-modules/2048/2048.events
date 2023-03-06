@@ -1,0 +1,484 @@
+a:1:{s:10:"gamesingle";a:16:{s:8:"--fmedit";a:3:{s:8:"oncreate";s:1156:"global $tab, $x, $y, $a,
+       $restart, $game;
+$restart = 0;
+if( file_exists("record") )
+{
+$record = file_get_contents("record");
+$record = str_replace(".", "", $record);
+$record = str_replace(1, "", $record);
+$record = str_replace(2, "", $record);
+$record = str_replace(3, "", $record);
+$record = str_replace(4, "", $record);
+$record = str_replace(5, "", $record);
+$record = str_replace(6, "", $record);
+$record = str_replace(7, "", $record);
+$record = str_replace(8, "", $record);
+$record = str_replace(9, "", $record);
+$record = str_replace(0, "", $record);
+$record = str_replace("qo", 1, $record);
+$record = str_replace("akt", 2, $record);
+$record = str_replace("zmfc", 3, $record);
+$record = str_replace("wiygv", 4, $record);
+$record = str_replace("sjpl", 5, $record);
+$record = str_replace("xnoi", 6, $record);
+$record = str_replace("eupen", 7, $record);
+$record = str_replace("dhfd", 8, $record);
+$record = str_replace("cab", 9, $record);
+$record = str_replace("ry", 0, $record);
+}
+if( $record == ""  )
+{
+$record = 0;
+}
+c("record")->caption = $record;
+$game = 1;
+$self->doubleBuffered = true;
+create_tab_start();";s:9:"onkeydown";s:1576:"global $a, $game, $tab, $y;
+if( $key )
+{
+//$restart = 0;
+c("create_tab")->enable = false;
+$tab->h = 70;
+$tab->y = $y;
+}
+if($key == VK_SPACE and $game == 1 )
+{
+rec();
+$a = 0;
+c("restart_t")->enable = false;
+c("create_tab")->enable = false;
+c("tab11")->y = 1; c("tab12")->y = 1; c("tab13")->y = 1; c("tab14")->y = 1;
+c("tab21")->y = 72; c("tab22")->y = 72; c("tab23")->y = 72; c("tab24")->y = 72;
+c("tab31")->y = 143; c("tab32")->y = 143; c("tab33")->y = 143; c("tab34")->y = 143;
+c("tab41")->y = 214; c("tab42")->y = 214; c("tab43")->y = 214; c("tab44")->y = 214;
+foreach (range(11,44) as $number) {
+    if( c("tab".$number)->valid() )
+    {
+    c("tab".$number)->h = 70;
+    }
+    }
+c("restart_t")->enable = true;
+c("ib2")->state = 0;
+}
+if( $key == VK_UP and $game == 1 )
+{
+$game = 0;
+game_UP();
+if( c("schet")->caption > c("record")->caption )
+{
+c("record")->caption = c("schet")->caption;
+}
+create_tab_start();
+$game = 1;
+}
+if( $key == VK_DOWN and $game == 1 )
+{
+$game = 0;
+game_DOWN();
+if( c("schet")->caption > c("record")->caption )
+{
+c("record")->caption = c("schet")->caption;
+}
+create_tab_start();
+$game = 1;
+}
+if( $key == VK_LEFT and $game == 1 )
+{
+$game = 0;
+game_LEFT();
+if( c("schet")->caption > c("record")->caption )
+{
+c("record")->caption = c("schet")->caption;
+}
+create_tab_start();
+$game = 1;
+}
+if( $key == VK_RIGHT and $game == 1 )
+{
+$game = 0;
+game_RIGHT();
+if( c("schet")->caption > c("record")->caption )
+{
+c("record")->caption = c("schet")->caption;
+}
+create_tab_start();
+$game = 1;
+}";s:12:"onclosequery";s:6:"rec();";}s:3:"ib2";a:1:{s:11:"onmousedown";s:614:"global $tab, $x, $y, $a, $game;
+if( $game == 1 )
+{
+rec();
+$a = 0;
+c("tab11")->y = 25; c("tab12")->y = 25; c("tab13")->y = 25; c("tab14")->y = 25;
+c("tab21")->y = 96; c("tab22")->y = 96; c("tab23")->y = 96; c("tab24")->y = 96;
+c("tab31")->y = 167; c("tab32")->y = 167; c("tab33")->y = 167; c("tab34")->y = 167;
+c("tab41")->y = 238; c("tab42")->y = 238; c("tab43")->y = 238; c("tab44")->y = 238;
+foreach (range(11,44) as $number) {
+    if( c("tab".$number)->valid() )
+    {
+    c("tab".$number)->h = 70;
+    }
+    }
+c("restart_t")->enable = false;
+c("restart_t")->enable = true;
+$self->state = 0;
+}";}s:16:"create_tab_start";a:1:{s:9:"onexecute";s:836:"global $tab, $x, $y, $b, $restart;
+$tab = c("null_tab");
+if( c("tab11")->caption !== "" and
+c("tab21")->caption !== "" and
+c("tab31")->caption !== "" and
+c("tab41")->caption !== "" and
+c("tab12")->caption !== "" and
+c("tab22")->caption !== "" and
+c("tab23")->caption !== "" and
+c("tab24")->caption !== "" and
+c("tab13")->caption !== "" and
+c("tab23")->caption !== "" and
+c("tab33")->caption !== "" and
+c("tab43")->caption !== "" and
+c("tab14")->caption !== "" and
+c("tab24")->caption !== "" and
+c("tab34")->caption !== "" and
+c("tab44")->caption !== "")
+{}else{
+while( $tab->caption !== "" )
+{
+    $rand = rand(1,4).rand(1,4);
+    $tab = c("tab".$rand);
+}
+}
+//$tab->caption = 2;
+$x = $tab->x;
+$y = $tab->y;
+//$tab->h = 0;
+//$tab->y += 35;
+//$tab->color = 0xf0f0f0;
+$b = 0;
+c("create_tab")->enable = true;";}s:10:"create_tab";a:1:{s:7:"ontimer";s:384:"global $tab, $x, $y, $b, $restart, $game;
+switch ($b)
+{
+case 0:
+
+if( $tab->h == 0 )
+{
+$b = 1;
+$tab->caption = 2;
+$tab->color = 0xffffff;
+$tab->h = 0;
+}else{
+$tab->h -= 10;
+$tab->y += 5;
+}
+
+break;
+
+case 1:
+
+if( $tab->h == 70 )
+{
+$restart = 1;
+$game = 1;
+$self->enable = false;
+$tab->h = 70;
+$tab->y = $y;
+}else{
+$tab->h += 10;
+$tab->y -= 5;
+}
+
+break;
+}";}s:9:"restart_t";a:1:{s:7:"ontimer";s:1344:"global $a;
+switch ($a)
+    {
+    case 0:
+    if( c("tab11")->h == 0 )
+        {
+        foreach (range(1,4) as $number)
+            {
+            foreach (range(1,4) as $number2)
+                {
+                c("tab".$number.$number2)->h = 0;
+                c("tab".$number.$number2)->color = 0x7a7a7a;
+                }
+            }
+            foreach (range(11,44) as $number) {
+    if( c("tab".$number)->valid() )
+    {
+    c("tab".$number)->caption = "";
+    c("tab".$number)->color = 0x7a7a7a;
+    }
+    }
+        $a = 1;
+        }else{
+        foreach (range(1,4) as $number) {
+            foreach (range(1,4) as $number2) {
+            c("tab".$number.$number2)->h -= 10;
+            c("tab".$number.$number2)->y += 5;
+            }
+        }
+        }
+    break;
+    case 1:
+    if( c("tab11")->h == 70 )
+        {
+        foreach (range(1,4) as $number) {
+            foreach (range(1,4) as $number2) {
+            c("tab".$number.$number2)->h = 70;
+            }
+        }
+        $self->enable = false;
+        create_tab_start();
+        }else{
+        foreach (range(1,4) as $number) {
+            foreach (range(1,4) as $number2) {
+            c("tab".$number.$number2)->h += 10;
+            c("tab".$number.$number2)->y -= 5;
+            }
+        }
+        }
+    break;
+}";}s:7:"game_up";a:1:{s:9:"onexecute";s:1915:"$i = 1;
+while ( $i <= 4 )
+{
+$i++;
+foreach (range(1,4) as $num1) {
+    foreach (range(1,4) as $num2) {
+        $num1_1 = $num1 + 1;
+        if( c("tab".$num1_1.$num2)->valid() and c("tab".$num1.$num2)->caption == "" and c("tab".$num1_1.$num2)->caption !== "" )
+            {
+            c("tab".$num1.$num2)->caption = c("tab".$num1_1.$num2)->caption;
+            c("tab".$num1.$num2)->color = c("tab".$num1_1.$num2)->color;
+            c("tab".$num1_1.$num2)->caption = "";
+            c("tab".$num1_1.$num2)->color = 0x7a7a7a;
+            }
+    }
+}
+}
+foreach (range(1,4) as $num1) {
+    foreach (range(1,4) as $num2) {
+        $num1_1 = $num1 + 1;
+        if( c("tab".$num1_1.$num2)->valid() and c("tab".$num1.$num2)->caption == c("tab".$num1_1.$num2)->caption and c("tab".$num1.$num2)->caption !== "" )
+                    {
+                    c("tab".$num1.$num2)->caption = c("tab".$num1.$num2)->caption * 2;
+                    c("schet")->caption += c("tab".$num1.$num2)->caption;
+                    c("tab".$num1.$num2)->color = c("colortab".c("tab".$num1.$num2)->caption)->color;
+                    c("tab".$num1_1.$num2)->caption = "";
+                    c("tab".$num1_1.$num2)->color = 0x7a7a7a;
+                    }
+                    }
+}
+$i = 1;
+while ( $i <= 4 )
+{
+    $i++;
+    foreach (range(1,4) as $num1) {
+        foreach (range(1,4) as $num2) {
+            $num1_1 = $num1 + 1;
+            if( c("tab".$num1_1.$num2)->valid() and c("tab".$num1.$num2)->caption == "" and c("tab".$num1_1.$num2)->caption !== "" )
+                {
+                c("tab".$num1.$num2)->caption = c("tab".$num1_1.$num2)->caption;
+                c("tab".$num1.$num2)->color = c("tab".$num1_1.$num2)->color;
+                c("tab".$num1_1.$num2)->caption = "";
+                c("tab".$num1_1.$num2)->color = 0x7a7a7a;
+                }
+            }
+    }
+    
+}";}s:9:"game_down";a:1:{s:9:"onexecute";s:1915:"$i = 1;
+while ( $i <= 4 )
+{
+    $i++;
+foreach (range(4,1) as $num1) {
+    foreach (range(4,1) as $num2) {
+        $num1_1 = $num1 - 1;
+        if( c("tab".$num1_1.$num2)->valid() and c("tab".$num1.$num2)->caption == "" and c("tab".$num1_1.$num2)->caption !== "" )
+            {
+            c("tab".$num1.$num2)->caption = c("tab".$num1_1.$num2)->caption;
+            c("tab".$num1.$num2)->color = c("tab".$num1_1.$num2)->color;
+            c("tab".$num1_1.$num2)->caption = "";
+            c("tab".$num1_1.$num2)->color = 0x7a7a7a;
+            }
+    }
+}
+}
+foreach (range(4,1) as $num1) {
+    foreach (range(4,1) as $num2) {
+        $num1_1 = $num1 - 1;
+        if( c("tab".$num1_1.$num2)->valid() and c("tab".$num1.$num2)->caption == c("tab".$num1_1.$num2)->caption and c("tab".$num1.$num2)->caption !== "" )
+                    {
+                    c("tab".$num1.$num2)->caption = c("tab".$num1.$num2)->caption * 2;
+                    c("schet")->caption += c("tab".$num1.$num2)->caption;
+                    c("tab".$num1.$num2)->color = c("colortab".c("tab".$num1.$num2)->caption)->color;
+                    c("tab".$num1_1.$num2)->caption = "";
+                    c("tab".$num1_1.$num2)->color = 0x7a7a7a;
+                    }
+                    }
+}
+$i = 1;
+while ( $i <= 4 )
+{
+    $i++;
+    foreach (range(4,1) as $num1) {
+        foreach (range(4,1) as $num2) {
+            $num1_1 = $num1 - 1;
+            if( c("tab".$num1_1.$num2)->valid() and c("tab".$num1.$num2)->caption == "" and c("tab".$num1_1.$num2)->caption !== "" )
+                {
+                c("tab".$num1.$num2)->caption = c("tab".$num1_1.$num2)->caption;
+                c("tab".$num1.$num2)->color = c("tab".$num1_1.$num2)->color;
+                c("tab".$num1_1.$num2)->caption = "";
+                c("tab".$num1_1.$num2)->color = 0x7a7a7a;
+                }
+            }
+    }
+
+}";}s:9:"game_left";a:1:{s:9:"onexecute";s:1911:"$i = 1;
+while ( $i <= 4 )
+{
+$i++;
+foreach (range(1,4) as $num1) {
+    foreach (range(1,4) as $num2) {
+        $num2_1 = $num2 + 1;
+        if( c("tab".$num1.$num2_1)->valid() and c("tab".$num1.$num2)->caption == "" and c("tab".$num1.$num2_1)->caption !== "" )
+            {
+            c("tab".$num1.$num2)->caption = c("tab".$num1.$num2_1)->caption;
+            c("tab".$num1.$num2)->color = c("tab".$num1.$num2_1)->color;
+            c("tab".$num1.$num2_1)->caption = "";
+            c("tab".$num1.$num2_1)->color = 0x7a7a7a;
+            }
+    }
+}
+}
+foreach (range(1,4) as $num1) {
+    foreach (range(1,4) as $num2) {
+        $num2_1 = $num2 + 1;
+        if( c("tab".$num1.$num2_1)->valid() and c("tab".$num1.$num2_1)->caption == c("tab".$num1.$num2)->caption and c("tab".$num1.$num2)->caption !== "" )
+                    {
+                    c("tab".$num1.$num2)->caption = c("tab".$num1.$num2)->caption * 2;
+                    c("schet")->caption += c("tab".$num1.$num2)->caption;
+                    c("tab".$num1.$num2)->color = c("colortab".c("tab".$num1.$num2)->caption)->color;
+                    c("tab".$num1.$num2_1)->caption = "";
+                    c("tab".$num1.$num2_1)->color = 0x7a7a7a;
+                    }
+                    }
+}
+$i = 1;
+while ( $i <= 4 )
+{
+    $i++;
+    foreach (range(1,4) as $num1) {
+        foreach (range(1,4) as $num2) {
+            $num2_1 = $num2 + 1;
+            if( c("tab".$num1.$num2_1)->valid() and c("tab".$num1.$num2)->caption == "" and c("tab".$num1.$num2_1)->caption !== "" )
+                {
+                c("tab".$num1.$num2)->caption = c("tab".$num1.$num2_1)->caption;
+                c("tab".$num1.$num2)->color = c("tab".$num1.$num2_1)->color;
+                c("tab".$num1.$num2_1)->caption = "";
+                c("tab".$num1.$num2_1)->color = 0x7a7a7a;
+                }
+            }
+    }
+
+}";}s:10:"game_right";a:1:{s:9:"onexecute";s:1911:"$i = 1;
+while ( $i <= 4 )
+{
+$i++;
+foreach (range(1,4) as $num1) {
+    foreach (range(4,1) as $num2) {
+        $num2_1 = $num2 - 1;
+        if( c("tab".$num1.$num2_1)->valid() and c("tab".$num1.$num2)->caption == "" and c("tab".$num1.$num2_1)->caption !== "" )
+            {
+            c("tab".$num1.$num2)->caption = c("tab".$num1.$num2_1)->caption;
+            c("tab".$num1.$num2)->color = c("tab".$num1.$num2_1)->color;
+            c("tab".$num1.$num2_1)->caption = "";
+            c("tab".$num1.$num2_1)->color = 0x7a7a7a;
+            }
+    }
+}
+}
+foreach (range(1,4) as $num1) {
+    foreach (range(4,1) as $num2) {
+        $num2_1 = $num2 - 1;
+        if( c("tab".$num1.$num2_1)->valid() and c("tab".$num1.$num2_1)->caption == c("tab".$num1.$num2)->caption and c("tab".$num1.$num2)->caption !== "" )
+                    {
+                    c("tab".$num1.$num2)->caption = c("tab".$num1.$num2)->caption * 2;
+                    c("schet")->caption += c("tab".$num1.$num2)->caption;
+                    c("tab".$num1.$num2)->color = c("colortab".c("tab".$num1.$num2)->caption)->color;
+                    c("tab".$num1.$num2_1)->caption = "";
+                    c("tab".$num1.$num2_1)->color = 0x7a7a7a;
+                    }
+                    }
+}
+$i = 1;
+while ( $i <= 4 )
+{
+    $i++;
+    foreach (range(1,4) as $num1) {
+        foreach (range(4,1) as $num2) {
+            $num2_1 = $num2 - 1;
+            if( c("tab".$num1.$num2_1)->valid() and c("tab".$num1.$num2)->caption == "" and c("tab".$num1.$num2_1)->caption !== "" )
+                {
+                c("tab".$num1.$num2)->caption = c("tab".$num1.$num2_1)->caption;
+                c("tab".$num1.$num2)->color = c("tab".$num1.$num2_1)->color;
+                c("tab".$num1.$num2_1)->caption = "";
+                c("tab".$num1.$num2_1)->color = 0x7a7a7a;
+                }
+            }
+    }
+
+}";}s:3:"rec";a:1:{s:9:"onexecute";s:748:"if( c("schet")->caption == 272 )
+{
+pre("Genius!");pre("Почему нажимаешь только на одну кнопку?");pre("Не надо так!");
+}
+if( c("schet")->caption >= c("record")->caption )
+{
+c("record")->caption = c("schet")->caption;
+$record = c("record")->caption;
+$record = str_replace(1,"qo", $record);
+$record = str_replace(2,"akt", $record);
+$record = str_replace(3,"zmfc", $record);
+$record = str_replace(4,"wiygv", $record);
+$record = str_replace(5,"sjpl", $record);
+$record = str_replace(6,"xnoi", $record);
+$record = str_replace(7,"eupen", $record);
+$record = str_replace(8,"dhfd", $record);
+$record = str_replace(9,"cab", $record);
+$record = str_replace(0,"ry", $record);
+file_put_contents("record", $record);
+}
+c("schet")->caption = 0;";}s:5:"label";a:2:{s:11:"onmousedown";s:274:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("gamesingle")->x;
+$formY = c("gamesingle")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";}s:4:"exit";a:1:{s:7:"onclick";s:13:"app::close();";}s:3:"bar";a:2:{s:11:"onmousedown";s:276:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("gamesingle")->x;
+$formY = c("gamesingle")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;
+";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";}s:4:"move";a:1:{s:7:"ontimer";s:154:"global $curX, $curY, $formX, $formY;
+c("gamesingle")->x = $formX - ( $curX - cursor_pos_x() );
+c("gamesingle")->y = $formY - ( $curY - cursor_pos_y() );";}s:8:"movehide";a:1:{s:7:"ontimer";s:163:"c("gamesingle")->alphaBlendValue -= 5;
+if ( c("gamesingle")->alphaBlendValue <= 175 ){
+    c("gamesingle")->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:8:"moveshow";a:1:{s:7:"ontimer";s:163:"c("gamesingle")->alphaBlendValue += 5;
+if ( c("gamesingle")->alphaBlendValue >= 250 ){
+    c("gamesingle")->alphaBlendValue = 255;
+    $self->enable = false;
+}";}}}

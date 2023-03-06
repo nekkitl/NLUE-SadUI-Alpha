@@ -1,0 +1,43 @@
+###################
+# sadUI / nekkitl #
+# 22:44/03/09/19  #
+###################
+
+[SADUI]
+ver = 0.0.0.1
+build = 162
+type = TRB
+acc = 0
+dbuff = 1
+systemlog = 1
+dbgmode = err_im
+ntcorever = 6.2
+f_nt = 0
+netverlow = 4
+secsetm = def
+
+[SETTINGS]
+network = 1
+disksystem = 1
+packages = 1
+theme = 0
+multimedia = 0
+datatime = 0
+security = 0
+login = if
+power = 0
+logger = if
+update = ltb
+uihelp = 0.0.0.1
+aboutui = n_linux
+
+[CORES]
+applications = 10
+net = "/localhost/"
+data = "/data/"
+cache = "/cache/"
+logs = "/logs/"
+local = "/locales/"
+lib = "/lib/"
+external = "/ext/"
+skin = "/skin/"

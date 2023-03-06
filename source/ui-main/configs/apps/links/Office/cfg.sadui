@@ -1,0 +1,16 @@
+;#################
+; sadUI / nekkitl
+; 22:44/03/09/19
+;#################
+
+[MS Word]
+path = "C:\Program Files\Microsoft Office\Office16\WINWORD.EXE"
+
+[MS Excel]
+path = "C:\Program Files\Microsoft Office\Office16\EXCEL.EXE"
+
+[MS PowerPoint]
+path = "C:\Program Files\Microsoft Office\Office16\POWERPNT.EXE"
+
+[MS Publisher]
+path = "C:\Program Files\Microsoft Office\Office16\MSPUB.EXE"

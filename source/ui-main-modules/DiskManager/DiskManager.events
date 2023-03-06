@@ -1,0 +1,855 @@
+a:2:{s:7:"explore";a:21:{s:5:"files";a:3:{s:10:"ondblclick";s:815:"$file = $self->items->selected;
+
+
+if ($self->items->selected == ".."){
+    $exp = explode("\\", c("path")->text);
+    $count = count($exp);
+    unset ($exp[$count - 1]);
+    unset ($exp[$count - 2]);
+    $newpath = implode("\\", $exp) . "\\";
+    ScanFiles($newpath);
+}
+else{
+    if(is_dir(c("path")->text . $file)){
+        ScanFiles(c("path")->text . $file . "\\");
+    }
+    else{
+        $pat = c("path")->caption;
+        $res = fileExt("$file");
+        switch ($res){
+        case 'png':c("pngV")->show(); c("pngV->image1")->loadFromFile("$pat" . "$file");
+		break;
+        case 'jpg': c("pngV")->show(); c("pngV->image1")->loadFromFile("$pat" . "$file");
+		break;
+        case 'gif': c("pngV")->show(); c("pngV->image1")->loadFromFile("$pat" . "$file");
+		break;
+        }
+    }
+}";s:7:"onclick";s:106:"global $choose;
+$choose = c("files")->items->selected; //выбранное;
+
+selectedFormat();
+selectedInfo();";s:11:"onmousedown";s:73:"if( $button == 1){
+c("fMenu")->popup(cursor_pos_x(), cursor_pos_y());
+}";}s:8:"--fmedit";a:1:{s:8:"oncreate";s:82:"err_no();
+
+c("path")->caption = "Hello.";
+c("frame")->repaint();
+getSysInfo();";}s:9:"scanfiles";a:1:{s:9:"onexecute";s:98:"c("path")->text = $path;
+$files = scandir($path);
+unset ($files[0]);
+c("files")->text = $files;";}s:11:"getdisktype";a:1:{s:9:"onexecute";s:233:"
+switch($value){
+
+     case 1: return 'None';
+     case 2: return 'Flash';
+     case 3: return 'Hard Drive';
+     case 4: return 'Network';
+     case 5: return 'CD-ROM';
+     case 6: return 'RAM Disk';
+}
+
+return 'Unknown';";}s:10:"getsysinfo";a:1:{s:9:"onexecute";s:516:"
+c("l_winver")->caption = osinfo_winver();
+c("l_dotnet")->caption = osinfo_dotnet();
+c("l_macad")->caption  = osinfo_macaddress();
+c("l_syslang")->caption = osinfo_syslang();
+c("l_compname")->caption = osinfo_computername();
+c("l_username")->caption = osinfo_username();
+
+$alpha = array();
+for($i = 'A'; $i < 'Z'; $i++){
+        if ( osinfo_drivetype($i.':\\') != 1 )
+                $alpha[] = $i;
+}
+
+$drives = c("c_drives");
+$drives->text = $alpha;
+c("disk_count")->caption = $drives->items->count;";}s:11:"getdiskinfo";a:1:{s:9:"onexecute";s:2719:"$disc .= ':\\';
+c("type1")->caption = getDiskType( osinfo_drivetype($disc) );
+c("sn1")->caption = osinfo_diskserial( $disc );
+
+$size = osinfo_disktotal( $disc );
+$size = $size ? $size : 1;
+c("volume1")->caption = number_format(($size / 1024) / 1024 / 1024, 2) . ' GB Total';
+        
+$size = osinfo_diskfree( $disc );
+$size = $size ? $size : 1;
+c("free1")->caption = number_format(($size / 1024) / 1024 / 1024, 2) . ' GB Free';
+
+if( c("volume1")->caption == "-0.00 GB Total"){
+c("type1")->caption = "Unknown";
+c("volume1")->caption = "...";
+c("free1")->caption = "...";
+c("sn1")->caption = "...";
+}
+
+$res = c("type1")->caption;
+
+switch($res){
+	case 'None':
+		c("img_HardDrive")->visible 		= false;
+		c("img_Network")->visible 			= false;
+		c("img_Flash")->visible 			= false;
+		c("img_none_or_unknown")->visible 	= true;
+		c("img_CDDISK")->visible            = false;
+		c("img_RAMDisk")->visible           = false;
+	break;
+	
+	case 'Unknown':
+		c("img_HardDrive")->visible 		= false;
+		c("img_Network")->visible 			= false;
+		c("img_Flash")->visible 			= false;
+		c("img_none_or_unknown")->visible 	= true;
+		c("img_CDDISK")->visible            = false;
+		c("img_RAMDisk")->visible           = false;
+	break;
+	
+	case 'Flash':
+		c("img_HardDrive")->visible 		= false;
+		c("img_Network")->visible 			= false;
+		c("img_Flash")->visible 			= true;
+		c("img_none_or_unknown")->visible 	= false;
+		c("img_CDDISK")->visible            = false;
+		c("img_RAMDisk")->visible           = false;
+	break;
+	
+	case 'Hard Drive':
+		c("img_HardDrive")->visible 		= true;
+		c("img_Network")->visible 			= false;
+		c("img_Flash")->visible 			= false;
+		c("img_none_or_unknown")->visible 	= false;
+		c("img_CDDISK")->visible            = false;
+		c("img_RAMDisk")->visible           = false;
+	break;
+	
+	case 'Network':
+		c("img_HardDrive")->visible 		= false;
+		c("img_Network")->visible 			= true;
+		c("img_Flash")->visible 			= false;
+		c("img_none_or_unknown")->visible 	= false;
+		c("img_CDDISK")->visible            = false;
+		c("img_RAMDisk")->visible           = false;
+	break;
+	
+	case 'CD-ROM':
+		c("img_HardDrive")->visible 		= false;
+		c("img_Network")->visible 			= false;
+		c("img_Flash")->visible 			= false;
+		c("img_none_or_unknown")->visible 	= false;
+		c("img_CDDISK")->visible            = true;
+		c("img_RAMDisk")->visible           = false;
+	break;
+	
+	case 'RAM Disk':
+		c("img_HardDrive")->visible 		= false;
+		c("img_Network")->visible 			= false;
+		c("img_Flash")->visible 			= false;
+		c("img_none_or_unknown")->visible 	= false;
+		c("img_CDDISK")->visible            = false;
+		c("img_RAMDisk")->visible           = true;
+	break;
+}";}s:8:"c_drives";a:1:{s:7:"onclick";s:340:"getDiskInfo($self->items->selected);
+c("diskABC")->caption = $self->items->selected;
+
+if( c("type1")->caption == "Unknown"){
+c("path")->caption = "No Files";
+c("files")->text = "";
+}
+
+else{
+c("path")->caption = $self->items->selected.":\\";
+c("files")->text = scandir($self->items->selected.":\\");
+c("files")->visible = true;
+}";}s:12:"selectedinfo";a:1:{s:9:"onexecute";s:1645:"err_no();
+
+$cd = c("icons->cd");
+$app  = c("icons->app");
+$audio  = c("icons->audio");
+$blank  = c("icons->blank");
+$icofile  = c("icons->file");
+$doc  = c("icons->doc");
+$font  = c("icons->font");
+$help  = c("icons->help");
+$packed  = c("icons->pack");
+$pic = c("icons->pic");
+$sys = c("icons->system");
+$text = c("icons->text");
+$video = c("icons->video");
+$folder = c("icons->folder");
+
+$path = c("path")->caption;
+$selected = c("files")->items->selected;
+
+$size = filesize($path.$selected);
+$file = is_file($path.$selected);
+$time = filectime($path.$selected);
+$owner = fileowner($path.$selected);
+
+if ( $file == False){
+c("file_type")->caption = "Folder";
+c("file_size")->caption = "...";
+c("file_dot")->caption = "";
+c("file_time")->caption = "";
+c("file_owner")->caption = "";
+$folder->picture->copyToClipboard();
+c("file_format")->picture->pasteFromClipboard();
+}
+
+else{
+c("file_type")->caption = "File";
+c("file_time")->caption = $time;
+c("file_owner")->caption = $owner;
+
+if ( $size < 1024){
+c("file_size")->caption = $size ." bytes";
+c("file_type")->caption = "Small File";
+}
+if( $size < 0){
+c("file_type")->caption = "System";
+c("file_size")->caption = "System";
+}
+if ( $size > 1024){
+$rsize = number_format(($size / 1024) , 2);
+c("file_size")->caption = $rsize." KB";
+}
+if ( $size > 1048576){
+$rsize = number_format(($size / 1024) / 1024, 2);
+c("file_size")->caption = $rsize." MB";
+}
+if ( $size > 1073471824){
+$rsize = number_format(($size / 1024) / 1024 / 1024, 2);
+c("file_size")->caption = $rsize." GB";
+}
+if( $size == false){
+c("file_size")->caption = "...";
+}
+
+}";}s:5:"xcore";a:1:{s:7:"ontimer";s:362:"$mipo = c("path")->caption;
+switch ($mipo){
+    case 'C:/': c("path")->caption = "C:\\"; $files = scandir("C:\\"); c("files")->text = $files; break;
+    case '/': c("path")->caption = "C:\\"; $files = scandir("C:\\"); c("files")->text = $files; break;
+    case '\\': c("path")->caption = "C:\\"; $files = scandir("C:\\"); c("files")->text = $files; break;
+}";}s:9:"img_disk1";a:2:{s:12:"onmouseenter";s:98:"$diskimg = c("img_disk1");
+
+$imgy = $diskimg->y;
+$diskimg->y = $imgy - 5;
+$diskimg->repaint();";s:12:"onmouseleave";s:98:"$diskimg = c("img_disk1");
+
+$imgy = $diskimg->y;
+$diskimg->y = $imgy + 5;
+$diskimg->repaint();";}s:9:"img_disk2";a:2:{s:11:"onmousedown";s:99:"$diskimg = c("img_disk2");
+
+$imgy = $diskimg->y;
+$diskimg->y = $imgy + 55;
+$diskimg->repaint();";s:9:"onmouseup";s:99:"$diskimg = c("img_disk2");
+
+$imgy = $diskimg->y;
+$diskimg->y = $imgy - 55;
+$diskimg->repaint();";}s:9:"img_disk4";a:2:{s:12:"onmouseenter";s:99:"$diskimg = c("img_disk4");
+
+$imgy = $diskimg->y;
+$diskimg->y = $imgy + 55;
+$diskimg->repaint();";s:12:"onmouseleave";s:99:"$diskimg = c("img_disk4");
+
+$imgy = $diskimg->y;
+$diskimg->y = $imgy - 55;
+$diskimg->repaint();";}s:9:"img_disk3";a:2:{s:9:"onmouseup";s:99:"$diskimg = c("img_disk3");
+
+$imgy = $diskimg->y;
+$diskimg->y = $imgy - 55;
+$diskimg->repaint();";s:11:"onmousedown";s:99:"$diskimg = c("img_disk3");
+
+$imgy = $diskimg->y;
+$diskimg->y = $imgy + 55;
+$diskimg->repaint();";}s:14:"selectedformat";a:1:{s:9:"onexecute";s:14861:"$cd = c("icons->cd");
+$app  = c("icons->app");
+$audio  = c("icons->audio");
+$blank  = c("icons->blank");
+$icofile  = c("icons->file");
+$doc  = c("icons->doc");
+$font  = c("icons->font");
+$help  = c("icons->help");
+$packed  = c("icons->pack");
+$pic = c("icons->pic");
+$sys = c("icons->system");
+$text = c("icons->text");
+$video = c("icons->video");
+$folder = c("icons->folder");
+
+
+$file = c("files")->items->selected;
+$res = fileExt("$file");
+c("file_dot")->caption = ".".$res;
+if( $res <> ''){
+		switch($res){
+
+		//PICTURES
+		case 'png':
+		$pic->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'jpg':
+		$pic->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'gif':
+		$pic->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'jpeg':
+		$pic->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'al':
+		$pic->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'ico':
+		$pic->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'psd':
+		$pic->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'tif':
+		$pic->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'tiff':
+		$pic->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'bmp':
+		$pic->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'svg':
+		$pic->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'cur':
+		$pic->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'icns':
+		$pic->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+
+		//AUDIO
+		case 'aif':
+		$audio->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'cda':
+		$audio->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'mid':
+		$audio->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'midi':
+		$audio->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'mp3':
+		$audio->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'mpa':
+		$audio->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'wav':
+		$audio->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'ogg':
+		$audio->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'wma':
+		$audio->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'wpl':
+		$audio->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'acc':
+		$audio->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'flac':
+		$audio->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+
+		//PACKED
+		case '7z';
+		$packed->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'arj':
+		$packed->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'deb':
+		$packed->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'pkg':
+		$packed->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'rar':
+		$packed->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'rgm':
+		$packed->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'tar.gz':
+		$packed->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'z':
+		$packed->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'zip':
+		$packed->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+
+		//IMAGES
+		case 'bin':
+		$cd->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'dmg':
+		$cd->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'iso':
+		$cd->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'toast':
+		$cd->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'vcd':
+		$cd->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'vhd':
+		$cd->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+
+        //SYSTEM
+        case 'csv':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'dat':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'db':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'log':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'mdb':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'sav':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'sql':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'tar':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'dll':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'sys':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'dmp':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'bak':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'cab':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'cpl':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'drv':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'lnk':
+		$sys->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+
+		
+        //APPS
+        case 'app':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'exe':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'exec':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'apk':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'bat':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'bin':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'ogi':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'ol':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'com':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'gadget':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'jar':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'py':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'wsf':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'msi':
+		$app->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		
+		//FONTS
+        case 'fnt':
+		$font->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'fon':
+		$font->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'otf':
+		$font->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'tff':
+		$font->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		
+		//INTERNET
+        case 'asp':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'aspx':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'html':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'css':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'js':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'php':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'xhtml':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'rss':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'xml':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+
+		//DOCS
+        case 'key':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'odp':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'pps':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'ppt':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'pptx':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'txt':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'rtf':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'ods':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'xlr':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'xls':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'xlsx':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'doc':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'doc':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'pdf':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'wpd':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'wps':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'wls':
+		$doc->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+
+		//VIDEO
+        case '3g2':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case '3gp':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'avi':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'flv':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'h264':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'm4v':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'mov':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'mp4':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'mpg':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'mpeg':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'rm':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'swf':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'vob':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'wmv':
+		$video->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+
+		//PROG
+        case 'cpp':
+		$text->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'h':
+		$text->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'c':
+		$text->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'php':
+		$text->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'metafile':
+		$text->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'sadui':
+		$text->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'vb':
+		$text->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		case 'cs':
+		$text->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		break;
+		}
+}
+		else {
+		$blank->picture->copyToClipboard();
+		c("file_format")->picture->pasteFromClipboard();
+		}";}s:7:"fdelete";a:1:{s:9:"onexecute";s:172:"$dir = c("path")->caption;
+$path = $dir.$choose;
+$isdir = is_dir($path);
+
+if( $isdir == True){
+dir_delete($path);
+}
+else{
+file_delete($path);
+}
+
+ScanFiles($dir);";}s:5:"fcopy";a:1:{s:9:"onexecute";s:124:"$dir = c("path")->caption;
+$path = $dir.$choose;
+$isdir = is_dir($path);
+
+c("fPathTo")->value = $path;
+ScanFiles($dir);";}s:6:"fpaste";a:1:{s:9:"onexecute";s:264:"$dir = c("path")->caption;
+$path = $dir.$choose;
+$old_path = c("fPathTo")->value;
+$isdir = is_dir($oldpath);
+
+if( $isdir == true){
+dir_copy($old_path, $dir);
+}
+else{
+file_copy($old_path, $dir);
+}
+
+message("Pasted to:\n".'"'.$dir.'"');
+ScanFiles($dir);";}s:4:"fcut";a:1:{s:9:"onexecute";s:126:"$dir = c("path")->caption;
+$path = $dir.$choose;
+$isdir = is_dir($path);
+
+c("fPathTo")->value = $path;
+
+ScanFiles($dir);";}s:4:"frun";a:1:{s:9:"onexecute";s:96:"$dir = c("path")->caption;
+$path = $dir.$choose;
+$isdir = is_dir($path);
+
+run($path, false);";}s:11:"fpasteascut";a:1:{s:9:"onexecute";s:263:"$dir = c("path")->caption;
+$path = $dir.$choose;
+$old_path = c("fPathTo")->value;
+$isdir = is_dir($oldpath);
+
+if( $isdir == true){
+dir_move($old_path, $dir);
+}
+else{
+file_move($old_path, $dir);
+}
+
+message("Moved to:\n".'"'.$dir.'"');
+ScanFiles($dir);";}s:7:"freload";a:1:{s:9:"onexecute";s:44:"$dir = c("path")->caption;
+ScanFiles($dir);";}}s:4:"pngv";a:1:{s:6:"image1";a:1:{s:7:"onclick";s:29:"HideForm(c('pngV'), SW_SHOW);";}}}

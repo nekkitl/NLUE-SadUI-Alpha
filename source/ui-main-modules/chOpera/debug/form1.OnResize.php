@@ -1,0 +1,1 @@
+<?php c("bar")->repaint();

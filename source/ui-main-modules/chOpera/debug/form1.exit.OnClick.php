@@ -1,0 +1,2 @@
+<?php onBrowserUnload();
+app::close();

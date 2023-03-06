@@ -1,0 +1,11 @@
+;#################
+; sadUI / nekkitl
+; 22:44/03/09/19
+;#################
+
+[2048 Game]
+path = 2048.exe
+ver = "Stable"
+size = "878 kb"
+info = "Simple game."
+author = "@nekkitl"

@@ -1,0 +1,13 @@
+{
+  "uid": "sadUI_Alpha",
+  "name": "sadUI Alpha",
+  "version": "",
+  "description": "Theme from sadUI Alpha",
+  "author": "Nick \"nekkitl\" Ognev",
+  "authorSite": "http://vk.com/nekkitl",
+  "file": "",
+  "scopes": [
+    "gui",
+    "ide\\project\\behaviours\\GuiFrameworkProjectBehaviour"
+  ]
+}

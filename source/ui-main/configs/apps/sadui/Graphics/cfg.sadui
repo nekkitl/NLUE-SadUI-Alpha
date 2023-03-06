@@ -1,0 +1,11 @@
+;#################
+; sadUI / nekkitl
+; 22:44/03/09/19
+;#################
+
+[OnScreenPaint]
+path = OnScreenPaint.exe
+ver = "Stable"
+size = "935 kb"
+info = "Draw something on your screen."
+author = "xsnakes (Rebuild @nekkitl)"

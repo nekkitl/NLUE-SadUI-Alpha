@@ -1,0 +1,4 @@
+[classes]
+dock\forms\MainForm
+dock\modules\AppModule
+dock\modules\MainModule

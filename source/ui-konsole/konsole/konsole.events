@@ -1,0 +1,29 @@
+a:1:{s:5:"basic";a:5:{s:9:"prog_name";a:2:{s:11:"onmousedown";s:313:"global $curX, $curY, $formX, $formY, $formid;
+
+$formid = c("basic");  // название формы
+
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = $formid->x;
+$formY = $formid->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";}s:4:"exit";a:1:{s:7:"onclick";s:13:"app::close();";}s:4:"move";a:1:{s:7:"ontimer";s:147:"global $curX, $curY, $formX, $formY, $formid;
+$formid->x = $formX - ( $curX - cursor_pos_x() );
+$formid->y = $formY - ( $curY - cursor_pos_y() );";}s:8:"movehide";a:1:{s:7:"ontimer";s:156:"global $formid;
+$formid->alphaBlendValue -= 5;
+if ( $formid->alphaBlendValue <= 175 ){
+    $formid->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:8:"moveshow";a:1:{s:7:"ontimer";s:156:"global $formid;
+$formid->alphaBlendValue += 5;
+if ( $formid->alphaBlendValue >= 250 ){
+    $formid->alphaBlendValue = 255;
+    $self->enable = false;
+}";}}}

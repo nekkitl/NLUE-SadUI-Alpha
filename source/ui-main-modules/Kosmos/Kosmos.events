@@ -1,0 +1,7 @@
+a:1:{s:6:"screen";a:3:{s:0:"";a:1:{s:8:"oncreate";s:61:"global $canvas;
+$canvas = new TControlCanvas( c("image1") );";}s:8:"onscreen";a:1:{s:7:"onclick";s:26:"c("xAnim")->enable = true;";}s:5:"xanim";a:1:{s:7:"ontimer";s:143:"$formy = c("screen")->y;
+$newy = $formy - 50;
+$scrh = $SCREEN->height;
+$truscr = 0 - $scrh;
+if( $formy < $truscr){
+$self->enable = false;}";}}}

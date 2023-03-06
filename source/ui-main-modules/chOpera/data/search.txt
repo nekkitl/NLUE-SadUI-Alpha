@@ -1,0 +1,4 @@
+Google|http://google.com/search?q=%s
+Яндекс|http://yandex.ru/yandsearch?text=%s
+Нигма|http://nigma.ru/?s=%s
+Bing|http://www.bing.com/search?q=%s

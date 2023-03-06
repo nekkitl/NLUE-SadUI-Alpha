@@ -1,0 +1,20 @@
+;#################
+; sadUI / nekkitl
+; 22:44/03/09/19
+;#################
+
+[chOpera]
+path = chopera.exe
+ver = "0.6 / 12.08.19"
+size = "1 167 kb"
+info = "Back to Opera 12, but on WebKit Engine."
+author = "ts.saltan / @nekkitl"
+cache = "/cache/"
+secblocks = "/cache/Cookies"
+
+[OneSession]
+path = onesession.exe
+ver = "Beta"
+size = "853 kb"
+info = "No cache and other data one session browser."
+author = "@nekkitl (Rebuild ruk1d)"

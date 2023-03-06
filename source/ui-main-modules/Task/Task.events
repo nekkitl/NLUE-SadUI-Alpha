@@ -1,0 +1,85 @@
+a:2:{s:12:"messageclose";a:3:{s:8:"--fmedit";a:1:{s:6:"onshow";s:135:"
+$list = c("main->ListView1");
+$caption = $list->items->get($list->selected[0])->caption;
+c("label1")->caption = "Kill '$caption'?";";}s:6:"label3";a:1:{s:7:"onclick";s:158:"$list = c("main->ListView1");
+$caption = $list->items->get($list->selected[0])->caption;
+shell_exec("TASKKILL /IM $caption");
+
+c("MessageClose")->close();";}s:6:"label4";a:1:{s:7:"onclick";s:26:"c("MessageClose")->hide();";}}s:4:"main";a:8:{s:8:"--fmedit";a:1:{s:8:"oncreate";s:973:"c("ListView1")->doubleBuffered  = true;
+
+$list = shell_exec('tasklist');
+$result = iconv('CP866','CP1251',$list);
+c("memo2")->text = $result;
+
+$expl = explode("\r\n", c("memo2")->text);
+for ($f=3; $f< count($expl); $f++){
+$expl2 = explode(' ', $expl[$f]);
+for ($i= count( $expl2); $i >=0; $i--) {
+ if ($expl2[$i] == ''){
+   unset( $expl2[$i]);
+ }
+}
+global $g,$h,$key;
+$g = 0;
+$h = 0;
+$key =  array_keys($expl2);
+for($k=0; $k< count( $expl2); $k++){
+  if (array_key_exists($g, $expl2)){
+    $g++;
+    $h++;
+  }else{
+    $expl2[ $g ] = ' ';
+    $g = $key[$h];
+  }
+}
+ksort ($expl2);
+$string = implode(' ', $expl2);
+$expl3 = explode('  ', $string);
+$idname = trim($expl3[1]);
+$expl4 = explode(' ', $idname);
+
+   $item = c("ListView1")->items->add();
+   $item->caption = trim($expl3[0]);
+   $sub[0] = trim($expl4[0]);
+   $sub[1] = trim($expl4[1]);
+   $sub[2] = trim($expl3[2]);
+   $sub[3] = trim($expl3[3]);
+
+   $item->subItems = $sub;
+}";}s:6:"label1";a:1:{s:7:"onclick";s:26:"c("MessageClose")->show();";}s:4:"move";a:1:{s:7:"ontimer";s:142:"global $curX, $curY, $formX, $formY;
+c("main")->x = $formX - ( $curX - cursor_pos_x() );
+c("main")->y = $formY - ( $curY - cursor_pos_y() );";}s:8:"movehide";a:1:{s:7:"ontimer";s:145:"c("main")->alphaBlendValue -= 5;
+if ( c("main")->alphaBlendValue <= 175 ){
+    c("main")->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:8:"moveshow";a:1:{s:7:"ontimer";s:145:"c("main")->alphaBlendValue += 5;
+if ( c("main")->alphaBlendValue >= 250 ){
+    c("main")->alphaBlendValue = 255;
+    $self->enable = false;
+}";}s:5:"label";a:2:{s:11:"onmousedown";s:262:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("main")->x;
+$formY = c("main")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";}s:3:"bar";a:2:{s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";s:11:"onmousedown";s:262:"global $curX, $curY, $formX, $formY;
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = c("main")->x;
+$formY = c("main")->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";}s:4:"exit";a:3:{s:7:"onclick";s:13:"app::close();";s:12:"onmouseenter";s:33:"c("exit")->caption = "Exit  X  ";";s:12:"onmouseleave";s:27:"c("exit")->caption = "X  ";";}}}

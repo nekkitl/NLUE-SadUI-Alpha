@@ -1,0 +1,36 @@
+a:1:{s:4:"main";a:8:{s:5:"hosts";a:1:{s:11:"onmousedown";s:79:"if( $button == 1){
+c("hosts_popup")->popup(cursor_pos_x(), cursor_pos_y());
+}";}s:8:"--fmedit";a:1:{s:8:"oncreate";s:13:"Hosts::Get();";}s:5:"block";a:1:{s:7:"onclick";s:117:"if(c("site")->text != null){
+    Hosts::Block();
+    Hosts::Get();
+}else{
+    c("site")->text = "Enter site!";
+}";}s:9:"prog_name";a:2:{s:11:"onmousedown";s:312:"global $curX, $curY, $formX, $formY, $formid;
+
+$formid = c("Main");  // название формы
+
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = $formid->x;
+$formY = $formid->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";}s:8:"moveshow";a:1:{s:7:"ontimer";s:156:"global $formid;
+$formid->alphaBlendValue += 5;
+if ( $formid->alphaBlendValue >= 250 ){
+    $formid->alphaBlendValue = 255;
+    $self->enable = false;
+}";}s:8:"movehide";a:1:{s:7:"ontimer";s:156:"global $formid;
+$formid->alphaBlendValue -= 5;
+if ( $formid->alphaBlendValue <= 175 ){
+    $formid->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:4:"move";a:1:{s:7:"ontimer";s:147:"global $curX, $curY, $formX, $formY, $formid;
+$formid->x = $formX - ( $curX - cursor_pos_x() );
+$formid->y = $formY - ( $curY - cursor_pos_y() );";}s:4:"exit";a:1:{s:7:"onclick";s:13:"app::close();";}}}

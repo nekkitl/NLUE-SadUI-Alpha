@@ -1,0 +1,74 @@
+a:2:{s:5:"basic";a:55:{s:9:"prog_name";a:2:{s:11:"onmousedown";s:313:"global $curX, $curY, $formX, $formY, $formid;
+
+$formid = c("basic");  // название формы
+
+$curX = cursor_pos_x();
+$curY = cursor_pos_y();
+$formX = $formid->x;
+$formY = $formid->y;
+c("move")->enable = true;
+if ( c("moveShow")->enable ){
+    c("moveShow")->enable = false;
+}
+c("moveHide")->enable = true;";s:9:"onmouseup";s:127:"c("move")->enable = false;
+if ( c("moveHide")->enable ){
+    c("moveHide")->enable = false;
+}
+c("moveShow")->enable = true;";}s:4:"exit";a:1:{s:7:"onclick";s:13:"app::close();";}s:4:"move";a:1:{s:7:"ontimer";s:147:"global $curX, $curY, $formX, $formY, $formid;
+$formid->x = $formX - ( $curX - cursor_pos_x() );
+$formid->y = $formY - ( $curY - cursor_pos_y() );";}s:8:"movehide";a:1:{s:7:"ontimer";s:156:"global $formid;
+$formid->alphaBlendValue -= 5;
+if ( $formid->alphaBlendValue <= 175 ){
+    $formid->alphaBlendValue = 175;
+    $self->enable = false;
+}";}s:8:"moveshow";a:1:{s:7:"ontimer";s:156:"global $formid;
+$formid->alphaBlendValue += 5;
+if ( $formid->alphaBlendValue >= 250 ){
+    $formid->alphaBlendValue = 255;
+    $self->enable = false;
+}";}s:8:"--fmedit";a:1:{s:8:"oncreate";s:40:"err_no();
+$self->doubleBuffered = true;";}s:6:"label1";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:31:"c("m_network")->visible = true;";}s:6:"label3";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:34:"c("m_disksystem")->visible = true;";}s:6:"label4";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:6:"label5";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:6:"label6";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:6:"label7";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:6:"label9";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:6:"label8";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label10";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label11";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label12";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label14";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label15";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:29:"c("m_about")->visible = true;";}s:7:"label33";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:31:"c("wifi_module")->disconnect();";}s:7:"label34";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:72:"$list = c("wifi_module")->networksList();
+c("wifi_list")->text = $list;";}s:7:"label35";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label36";a:3:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";s:7:"onclick";s:25:"c("wifi_module")->free();";}s:7:"label47";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label50";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label64";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label65";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label66";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label77";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:11:"getdiskinfo";a:1:{s:9:"onexecute";s:615:"$disc .= ':\\';
+c("type1")->caption = getDiskType( osinfo_drivetype($disc) );
+c("sn1")->caption = osinfo_diskserial( $disc );
+
+$size = osinfo_disktotal( $disc );
+$size = $size ? $size : 1;
+c("volume1")->caption = number_format(($size / 1024) / 1024 / 1024, 2) . ' GB Total';
+        
+$size = osinfo_diskfree( $disc );
+$size = $size ? $size : 1;
+c("free1")->caption = number_format(($size / 1024) / 1024 / 1024, 2) . ' GB Free';
+
+if( c("volume1")->caption == "-0.00 GB Total"){
+c("type1")->caption = "Unknown";
+c("volume1")->caption = "...";
+c("free1")->caption = "...";
+c("sn1")->caption = "...";
+}";}s:11:"getdisktype";a:1:{s:9:"onexecute";s:233:"
+switch($value){
+
+     case 1: return 'None';
+     case 2: return 'Flash';
+     case 3: return 'Hard Drive';
+     case 4: return 'Network';
+     case 5: return 'CD-ROM';
+     case 6: return 'RAM Disk';
+}
+
+return 'Unknown';";}s:7:"label69";N;s:7:"label70";N;s:5:"type1";N;s:3:"sn1";N;s:7:"volume1";N;s:5:"free1";N;s:10:"getsysinfo";a:1:{s:9:"onexecute";s:465:"
+c("l_winver")->caption = osinfo_winver();
+c("l_dotnet")->caption = osinfo_dotnet();
+c("l_macad")->caption  = osinfo_macaddress();
+c("l_syslang")->caption = osinfo_syslang();
+c("l_compname")->caption = osinfo_computername();
+c("l_username")->caption = osinfo_username();
+
+$alpha = array();
+for($i = 'A'; $i < 'Z'; $i++){
+        if ( osinfo_drivetype($i.':\\') != 1 )
+                $alpha[] = $i;
+}
+
+$drives = c("c_drives");
+$drives->text = $alpha;";}s:8:"c_drives";a:1:{s:7:"onclick";s:36:"getDiskInfo($self->items->selected);";}s:7:"label73";N;s:7:"label74";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label75";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label76";N;s:8:"listbox1";N;s:9:"groupbox6";N;s:7:"label86";N;s:7:"image21";N;s:7:"label87";N;s:7:"label88";N;s:7:"label89";N;s:7:"label90";N;s:7:"label91";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:7:"label92";a:2:{s:12:"onmouseenter";s:27:"$self->transparent = false;";s:12:"onmouseleave";s:26:"$self->transparent = true;";}s:8:"listbox2";N;s:10:"m_packages";N;}s:6:"inneed";a:2:{s:10:"scrollbox1";N;s:7:"label73";N;}}

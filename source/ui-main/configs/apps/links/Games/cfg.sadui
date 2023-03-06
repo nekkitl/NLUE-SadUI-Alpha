@@ -1,0 +1,25 @@
+;#################
+; sadUI / nekkitl
+; 22:44/03/09/19
+;#################
+
+[S.T.A.L.K.E.R. Dead City]
+path = "D:\Games\S.T.A.L.K.E.R. Dead City - Breakthrough\S.T.A.L.K.E.R Dead City Breakthrough v2.3.exe"
+
+[S.T.A.L.K.E.R. Dead Air]
+path = "D:\Games\S.T.A.L.K.E.R. Dead Air\xrEngine.exe"
+
+[S.T.A.L.K.E.R. Clear Sky]
+path = "D:\Games\S.T.A.L.K.E.R. Clear Sky\Settings.exe"
+[S.T.A.L.K.E.R. Зов Припяти]
+path = "D:\Games\STALKER Зов Припяти\Stalker-COP.exe"
+
+[Steam]
+path = "D:\Games\Steam\Steam.exe"
+
+[Dishonored - GOTY]
+path = "D:\Games\Dishonored - GOTY\Binaries\Win32\Dishonored.exe"
+
+
+[Wolfenstein]
+path = "D:\Games\Wolfenstein\Wolf2.exe"
