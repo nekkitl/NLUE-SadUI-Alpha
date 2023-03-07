@@ -21,3 +21,4 @@
 *.sourcemap
 *.exe
 *.zip
+*.DS_Store
